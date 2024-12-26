@@ -7,7 +7,7 @@ export default {
     container: {
       center: true,
       padding: {
-        DEFAULT: '2rem',
+        DEFAULT: '5rem',
         sm: '5rem',
       },
       screens: {
@@ -19,6 +19,8 @@ export default {
     },
     extend: {
       colors: {
+        primaryRed: '#DB4444',
+        primaryGreen: '#00FF66',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

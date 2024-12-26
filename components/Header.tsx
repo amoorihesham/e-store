@@ -23,6 +23,7 @@ const Header = () => {
             <Input
               className='w-full placeholder:text-sm placeholder:text-gray-500'
               placeholder='Search'
+              name='query'
             />
           </Form>
           <div className='flex items-center gap-5'>
