@@ -17,6 +17,7 @@ import {
   GET_NODATA_IMAGE_QUERYResult,
   GET_PRODUCT_QUERYResult,
   GET_PRODUCTS_QUERYResult,
+  GET_SEARCHED_PRODUCTS_QUERYResult,
 } from '@/sanity.types';
 
 export const getBanners = async (): Promise<GET_BANNERS_QUERYResult> => {
@@ -76,7 +77,7 @@ export const getFeatures = async (): Promise<GET_FEATURES_QUERYResult> => {
   return response.data || [];
 };
 
-export const getSearchedProducts = async (searchTerm: string | string[] | undefined): Promise<GET_PRODUCTS_QUERYResult> => {
+export const getSearchedProducts = async (searchTerm: string | string[] | undefined): Promise<GET_SEARCHED_PRODUCTS_QUERYResult> => {
   const response = await sanityFetch({
     query: GET_SEARCHED_PRODUCTS_QUERY,
     params: { searchTerm },

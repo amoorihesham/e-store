@@ -1,11 +1,10 @@
-import AddToCartButton from '@/components/AddToCartButton';
-import Breadcrumbs from '@/components/Breadcrumbs';
-
+import Image from 'next/image';
+import { urlFor } from '@/sanity/lib/image';
 import { getProduct } from '@/lib/sanity/functions';
 import { calculatePriceAfterDiscount, currencyFormatter } from '@/lib/utils';
-import { urlFor } from '@/sanity/lib/image';
 import { Star } from 'lucide-react';
-import Image from 'next/image';
+import AddToCartButton from '@/components/AddToCartButton';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export default async function page({ params }: { params: Promise<{ productId: string }> }) {
   const { productId } = await params;
