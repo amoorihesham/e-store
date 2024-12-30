@@ -5,7 +5,9 @@ import Form from 'next/form';
 import { ClerkLoaded, SignedIn, SignInButton, UserButton, useUser } from '@clerk/nextjs';
 import { List, ShoppingBag } from 'lucide-react';
 import { Input } from './ui/input';
+import useCartStore from '@/store/useCartStore';
 const Header = () => {
+  const CartCount = useCartStore((state) => state.items.length);
   const { user } = useUser();
   return (
     <header className='py-4 px-5 shadow-md'>
@@ -29,8 +31,9 @@ const Header = () => {
           <div className='flex items-center gap-5'>
             <Link
               href={'/cart'}
-              className=''>
+              className=' relative'>
               <ShoppingBag className='h-5 w-5' />
+              <span className=' absolute -top-2 left-0.5 w-4 h-4 bg-primaryRed rounded-full flex items-center justify-center text-white text-xs'>{CartCount}</span>
             </Link>
             <ClerkLoaded>
               <SignedIn>

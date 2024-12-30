@@ -1,15 +1,18 @@
 import Banner from '@/components/Banner';
 import CategoriesList from '@/components/CategoriesList';
+import CategoryBanner from '@/components/CategoryBanner';
+import FeaturesList from '@/components/FeaturesList';
 import ProductsList from '@/components/ProductsList';
-import { getCategories, getProducts } from '@/lib/sanity/functions';
+import { getCategories, getCategoriesBanners, getFeatures, getProducts } from '@/lib/sanity/functions';
 
 export default async function Home() {
   const products = await getProducts();
   const categories = await getCategories();
+  const categoriesBanners = await getCategoriesBanners();
 
   return (
     <section className=' py-8'>
-      <div className='container space-y-14'>
+      <div className='container space-y-16'>
         <Banner />
         <ProductsList
           products={products}
@@ -21,7 +24,13 @@ export default async function Home() {
           hint='categories'
           categories={categories}
         />
-        <hr className='border-gray-200' />
+        <CategoryBanner banners={categoriesBanners} />
+        <FeaturesList />
+        <ProductsList
+          products={products}
+          title='Explore Our Products'
+          hint='Our Products'
+        />
       </div>
     </section>
   );

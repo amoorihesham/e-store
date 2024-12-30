@@ -25,6 +25,12 @@ export const productType = defineType({
       type: 'text',
     }),
     defineField({
+      name: 'category',
+      title: 'Category',
+      type: 'reference',
+      to: [{ type: 'category' }],
+    }),
+    defineField({
       name: 'image',
       title: 'Image',
       type: 'image',
@@ -33,7 +39,22 @@ export const productType = defineType({
       },
       fields: [{ name: 'alt', type: 'string', title: 'ALT' }],
     }),
-
+    defineField({
+      name: 'images',
+      title: 'Images',
+      type: 'array',
+      of: [
+        {
+          name: 'image',
+          title: 'Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+          fields: [{ name: 'alt', title: 'ALT', type: 'string' }],
+        },
+      ],
+    }),
     defineField({
       name: 'has_discount',
       title: 'Has Discount',
@@ -62,4 +83,15 @@ export const productType = defineType({
       type: 'number',
     }),
   ],
+  preview: {
+    select: { title: 'name', subtitle: 'base_price', media: 'image', has_discount: 'has_discount', discountAmount: 'discount_amount', stocked: 'stocked', quantity: 'quantity' },
+    prepare(values) {
+      const { title, subtitle, media, has_discount, discountAmount, stocked, quantity } = values;
+      return {
+        title,
+        subtitle: `${has_discount ? `%${discountAmount}` : ''} ($${subtitle}) - ${stocked ? `QTY (${quantity})` : 'out of stock'}`,
+        media: media,
+      };
+    },
+  },
 });

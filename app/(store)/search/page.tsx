@@ -1,11 +1,13 @@
-import React from 'react';
+import { getSearchedProducts } from '@/lib/sanity/functions';
 
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
-const page = async (props: { searchParams: SearchParams }) => {
+const SearchPage = async (props: { searchParams: SearchParams }) => {
   const { query } = await props.searchParams;
+  const products = await getSearchedProducts(query ? query : '');
+  console.log(products);
 
-  return <div> search params: {query} </div>;
+  return <div> search params: </div>;
 };
 
-export default page;
+export default SearchPage;

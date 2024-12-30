@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import Header from '@/components/Header';
 import { cn } from '@/lib/utils';
 import '../globals.css';
+import Footer from '@/components/Footer';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -28,6 +29,7 @@ export default function RootLayout({
           <main>
             <Header />
             {children}
+            <Footer />
           </main>
         </body>
       </html>

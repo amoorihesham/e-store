@@ -1,0 +1,47 @@
+'use client';
+
+import useCartStore, { cartItem } from '@/store/useCartStore';
+import { Button } from './ui/button';
+import { Product } from '@/sanity.types';
+import { Heart } from 'lucide-react';
+import { useState } from 'react';
+import { calculatePriceAfterDiscount } from '@/lib/utils';
+import { urlFor } from '@/sanity/lib/image';
+import UpdateCartQuantity from './UpdateCartQuantity';
+
+const AddToCartButton = ({ product }: { product: Product }) => {
+  const price = product.has_discount ? calculatePriceAfterDiscount(product.base_price!, product.discount_amount!) : product.base_price;
+  const [productDetails, setProductDetails] = useState<cartItem>({
+    _id: product._id,
+    base_price: price!,
+    quantity: 1,
+    name: product.name!,
+    image: urlFor(product.image!.asset!._ref!).url(),
+  });
+  const { addToCart } = useCartStore();
+
+  return (
+    <>
+      <div className='flex items-center justify-between'>
+        <Button
+          size='icon'
+          variant='outline'>
+          <Heart size={25} />
+        </Button>
+        <UpdateCartQuantity
+          productDetails={productDetails}
+          setProductDetails={setProductDetails}
+        />
+      </div>
+      <div>
+        <Button
+          className='bg-primaryRed hover:bg-red-700 transition-colors duration-300 w-full'
+          onClick={() => addToCart(productDetails)}>
+          Buy Now
+        </Button>
+      </div>
+    </>
+  );
+};
+
+export default AddToCartButton;

@@ -1,20 +1,58 @@
-import { GET_PRODUCTS_QUERYResult } from '@/sanity.types';
-import { urlFor } from '@/sanity/lib/image';
-import { Star } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import SectionHint from './SectionHint';
-import { calculatePriceAfterDiscount, currencyFormatter } from '@/lib/utils';
-import NoData from './NoData';
+'use client';
 
-const ProductsList = ({ products, title, hint }: { products: GET_PRODUCTS_QUERYResult; title: string; hint: string }) => {
+import { Category, Product } from '@/sanity.types';
+import { useState } from 'react';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { urlFor } from '@/sanity/lib/image';
+import { calculatePriceAfterDiscount, currencyFormatter } from '@/lib/utils';
+import { Star } from 'lucide-react';
+import { Input } from './ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Button } from './ui/button';
+import { getProducts } from '@/lib/sanity/functions';
+
+const ProductsPageList = ({ products, categories }: { products: Product[]; categories: Category[] }) => {
+  const [productsList, setProductsList] = useState(products);
+
+  const [search, setSearch] = useState('');
+  console.log(productsList);
+
+  const handleFiltersChange = async (category: string) => {
+    console.log(category);
+    if (!category) return;
+    const filterd = productsList.filter((p) => p.category?._id == category);
+    console.log('Filtered', filterd);
+    setProductsList(filterd);
+  };
+
   return (
     <div>
-      <SectionHint hint={hint} />
-      <h2 className='text-3xl font-bold'>{title}</h2>
-      {!products.length && <NoData message='No Products Found' />}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-10'>
-        {products.slice(0, 5).map((product) => (
+      <div className='flex mb-10 items-center justify-between'>
+        <Input
+          placeholder='Search products'
+          className='w-1/2'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Select onValueChange={(e) => handleFiltersChange(e)}>
+          <SelectTrigger className='w-[180px]'>
+            <SelectValue placeholder='Category' />
+          </SelectTrigger>
+          <SelectContent>
+            {categories.map((category) => (
+              <SelectItem
+                value={category._id}
+                key={category._id}>
+                {category.title}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 '>
+        {productsList.map((product) => (
           <Link
             href={`/product/${product.slug?.current}`}
             key={product._id}
@@ -72,4 +110,4 @@ const ProductsList = ({ products, title, hint }: { products: GET_PRODUCTS_QUERYR
   );
 };
 
-export default ProductsList;
+export default ProductsPageList;

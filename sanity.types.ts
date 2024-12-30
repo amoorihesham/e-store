@@ -68,15 +68,34 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Product = {
+export type Feature = {
   _id: string;
-  _type: "product";
+  _type: "feature";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
-  slug?: Slug;
-  desc?: string;
+  title?: string;
+  description?: string;
+  icon?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+};
+
+export type NotFound = {
+  _id: string;
+  _type: "notFound";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
   image?: {
     asset?: {
       _ref: string;
@@ -89,6 +108,72 @@ export type Product = {
     alt?: string;
     _type: "image";
   };
+};
+
+export type Category_banner = {
+  _id: string;
+  _type: "category_banner";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  subHeading?: string;
+  slug?: Slug;
+  heading?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  btn_text?: string;
+};
+
+export type Product = {
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  desc?: string;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  images?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
   has_discount?: boolean;
   discount_amount?: number;
   stocked?: boolean;
@@ -207,7 +292,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Product | Banner | Category | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Feature | NotFound | Category_banner | Product | Banner | Category | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: GET_BANNERS_QUERY
@@ -237,7 +322,7 @@ export type GET_BANNERS_QUERYResult = Array<{
   discount_amount?: number;
 }>;
 // Variable: GET_PRODUCTS_QUERY
-// Query: *[_type=='product']
+// Query: *[_type=='product']{...,"category":category->{_id,title}}
 export type GET_PRODUCTS_QUERYResult = Array<{
   _id: string;
   _type: "product";
@@ -247,6 +332,10 @@ export type GET_PRODUCTS_QUERYResult = Array<{
   name?: string;
   slug?: Slug;
   desc?: string;
+  category: {
+    _id: string;
+    title: string | null;
+  } | null;
   image?: {
     asset?: {
       _ref: string;
@@ -259,12 +348,73 @@ export type GET_PRODUCTS_QUERYResult = Array<{
     alt?: string;
     _type: "image";
   };
+  images?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
   has_discount?: boolean;
   discount_amount?: number;
   stocked?: boolean;
   quantity?: number;
   base_price?: number;
 }>;
+// Variable: GET_PRODUCT_QUERY
+// Query: *[_type=='product' && slug.current == $productId][0]
+export type GET_PRODUCT_QUERYResult = {
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  desc?: string;
+  category?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "category";
+  };
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  images?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  has_discount?: boolean;
+  discount_amount?: number;
+  stocked?: boolean;
+  quantity?: number;
+  base_price?: number;
+} | null;
 // Variable: GET_CATEGORIES_QUERY
 // Query: *[_type=='category']
 export type GET_CATEGORIES_QUERYResult = Array<{
@@ -289,13 +439,78 @@ export type GET_CATEGORIES_QUERYResult = Array<{
     _type: "image";
   };
 }>;
+// Variable: GET_CATEGORIES_BANNER_QUERY
+// Query: *[_type=='category_banner']
+export type GET_CATEGORIES_BANNER_QUERYResult = Array<{
+  _id: string;
+  _type: "category_banner";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  subHeading?: string;
+  slug?: Slug;
+  heading?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  btn_text?: string;
+}>;
+// Variable: GET_NODATA_IMAGE_QUERY
+// Query: *[_type=='notFound']{_id,image}
+export type GET_NODATA_IMAGE_QUERYResult = Array<{
+  _id: string;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+}>;
+// Variable: GET_FEATURES_QUERY
+// Query: *[_type=='feature']{_id,title,description,icon}
+export type GET_FEATURES_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  description: string | null;
+  icon: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type=='banner']": GET_BANNERS_QUERYResult;
-    "*[_type=='product']": GET_PRODUCTS_QUERYResult;
+    "*[_type=='product']{...,\"category\":category->{_id,title}}": GET_PRODUCTS_QUERYResult;
+    "*[_type=='product' && slug.current == $productId][0]": GET_PRODUCT_QUERYResult;
     "*[_type=='category']": GET_CATEGORIES_QUERYResult;
+    "*[_type=='category_banner']": GET_CATEGORIES_BANNER_QUERYResult;
+    "*[_type=='notFound']{_id,image}": GET_NODATA_IMAGE_QUERYResult;
+    "*[_type=='feature']{_id,title,description,icon}": GET_FEATURES_QUERYResult;
   }
 }
