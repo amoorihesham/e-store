@@ -1,54 +1,136 @@
 'use client';
-import React from 'react';
 import Link from 'next/link';
-import Form from 'next/form';
-import { ClerkLoaded, SignedIn, SignInButton, UserButton, useUser } from '@clerk/nextjs';
-import { List, ShoppingBag } from 'lucide-react';
-import { Input } from './ui/input';
+import { ClerkLoaded, SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { List, Menu, ShoppingBag } from 'lucide-react';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import useCartStore from '@/store/useCartStore';
+
 const Header = () => {
   const CartCount = useCartStore((state) => state.items.length);
-  const { user } = useUser();
   return (
-    <header className='py-4 px-5 shadow-md'>
+    <header className='py-4 shadow-md'>
       <div className='container'>
-        <div className='flex flex-col items-center gap-3 sm:flex-row'>
-          <Link
-            href='/'
-            className='font-bold text-xl'>
-            e-Store
-          </Link>
+        {/* Mobile navbar */}
+        <div className='md:hidden flex items-center justify-between'>
+          <div className='flex items-center gap-2'>
+            <Sheet>
+              <SheetTrigger>
+                <Menu className='w-5 h-5' />
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>
+                    <Link
+                      href='/'
+                      className='font-bold text-xl'>
+                      e-Store
+                    </Link>
+                  </SheetTitle>
+                </SheetHeader>
+                <div className='flex flex-col gap-5 mt-5 justify-center items-center'>
+                  <Link
+                    href={'/'}
+                    className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300 hover:bg-gray-100 w-full py-2 text-center rounded-sm'>
+                    Home
+                  </Link>
+                  <Link
+                    href={'/products'}
+                    className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300 hover:bg-gray-100 w-full py-2 text-center rounded-sm'>
+                    Products
+                  </Link>
+                  <Link
+                    href={'/'}
+                    className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300 hover:bg-gray-100 w-full py-2 text-center rounded-sm'>
+                    Search
+                  </Link>
+                  <Link
+                    href={'/'}
+                    className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300 hover:bg-gray-100 w-full py-2 text-center rounded-sm'>
+                    Contact
+                  </Link>
+                </div>
+              </SheetContent>
+            </Sheet>
 
-          <Form
-            action={'/search'}
-            className='flex-1 mx-auto w-full'>
-            <Input
-              className='w-full placeholder:text-sm placeholder:text-gray-500'
-              placeholder='Search'
-              name='query'
-            />
-          </Form>
-          <div className='flex items-center gap-5'>
             <Link
-              href={'/cart'}
-              className=' relative'>
-              <ShoppingBag className='h-5 w-5' />
-              <span className=' absolute -top-2 left-0.5 w-4 h-4 bg-primaryRed rounded-full flex items-center justify-center text-white text-xs'>{CartCount}</span>
+              href='/'
+              className='font-bold text-xl'>
+              e-Store
             </Link>
-            <ClerkLoaded>
+          </div>
+          <ClerkLoaded>
+            <div className='flex items-center gap-3'>
+              <Link
+                href={'/cart'}
+                className=' relative'>
+                <ShoppingBag className='h-5 w-5' />
+                <span className=' absolute -top-2 left-0.5 w-4 h-4 bg-primaryRed rounded-full flex items-center justify-center text-white text-xs'>{CartCount}</span>
+              </Link>
               <SignedIn>
                 <Link href={'/orders'}>
                   <List className='w-5 h-5' />
                 </Link>
-                <div className='flex items-center gap-3'>
-                  <UserButton />
-                  <div>
-                    <span className='text-muted-foreground text-xs'>Welcome</span>
-                    <p className='text-sm text-gray-800'>{user?.fullName}</p>
-                  </div>
-                </div>
+
+                <UserButton />
               </SignedIn>
-              {!user && <SignInButton />}
+              <SignedOut>
+                <SignInButton mode='modal' />
+              </SignedOut>
+            </div>
+          </ClerkLoaded>
+        </div>
+
+        {/* Desktop Navbar */}
+        <div className='hidden md:flex items-center justify-between '>
+          <div>
+            <Link
+              href='/'
+              className='font-bold text-xl'>
+              e-Store
+            </Link>
+          </div>
+          <div className='flex items-center gap-5'>
+            <Link
+              href={'/'}
+              className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300'>
+              Home
+            </Link>
+            <Link
+              href={'/products'}
+              className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300'>
+              Products
+            </Link>
+            <Link
+              href={'/'}
+              className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300'>
+              Search
+            </Link>
+            <Link
+              href={'/'}
+              className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300'>
+              Contact
+            </Link>
+          </div>
+          <div className='hidden items-center gap-5 md:flex'>
+            <ClerkLoaded>
+              <div className='flex items-center gap-3'>
+                <Link
+                  href={'/cart'}
+                  className=' relative'>
+                  <ShoppingBag className='h-5 w-5' />
+                  <span className=' absolute -top-2 left-0.5 w-4 h-4 bg-primaryRed rounded-full flex items-center justify-center text-white text-xs'>{CartCount}</span>
+                </Link>
+                <SignedIn>
+                  <Link href={'/orders'}>
+                    <List className='w-5 h-5' />
+                  </Link>
+
+                  <UserButton />
+                </SignedIn>
+                <SignedOut>
+                  <SignInButton mode='modal' />
+                </SignedOut>
+              </div>
             </ClerkLoaded>
           </div>
         </div>

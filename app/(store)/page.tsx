@@ -3,7 +3,7 @@ import CategoriesList from '@/components/CategoriesList';
 import CategoryBanner from '@/components/CategoryBanner';
 import FeaturesList from '@/components/FeaturesList';
 import ProductsList from '@/components/ProductsList';
-import { getCategories, getCategoriesBanners, getFeatures, getProducts } from '@/lib/sanity/functions';
+import { getCategories, getCategoriesBanners, getProducts } from '@/lib/sanity/functions';
 
 export default async function Home() {
   const products = await getProducts();
