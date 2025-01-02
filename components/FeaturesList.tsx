@@ -6,16 +6,16 @@ export default async function FeaturesList() {
   const features = await getFeatures();
 
   return (
-    <div className='container'>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 '>
+    <div className='container my-8'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 '>
         {features.map((feature) => (
           <div
             key={feature._id}
             className=' space-y-3'>
             <div className='bg-black rounded-full w-20 h-20 flex items-center justify-center border border-x-8 border-y-8 border-gray-400 mx-auto'>
               <Image
-                src={urlFor(feature.icon?.asset?._ref!).url()}
-                alt={feature.icon?.alt!}
+                src={urlFor(feature.icon!.asset!._ref!).url()}
+                alt={feature.icon!.alt!}
                 width={50}
                 height={50}
                 objectFit='contain'

@@ -8,9 +8,9 @@ const CategoryBanner = ({ banners }: { banners: GET_CATEGORIES_BANNER_QUERYResul
   return (
     <div>
       {banners.length ? (
-        <div className='py-14  bg-black mt-20'>
-          <div className='container flex justify-between'>
-            <div className='left space-y-14'>
+        <div className='py-14  bg-black mt-12'>
+          <div className='container flex flex-col items-center gap-y-10 md:flex-row md:justify-between md:px-14'>
+            <div className='left space-y-5 md:order-first'>
               <span className='text-green-500 capitalize font-semibold'>{banners[0].subHeading}</span>
               <h6 className='text-white text-4xl max-w-[320px] font-bold lineHeight'>{banners[0].heading}</h6>
               <Button
@@ -19,10 +19,10 @@ const CategoryBanner = ({ banners }: { banners: GET_CATEGORIES_BANNER_QUERYResul
                 {banners[0].btn_text}
               </Button>
             </div>
-            <div className='right'>
+            <div className='right order-first md:order-last'>
               <Image
-                src={urlFor(banners[0].image?.asset?._ref!).url()}
-                alt={banners[0].image?.alt!}
+                src={urlFor(banners[0].image!.asset!._ref!).url()}
+                alt={banners[0].image!.alt!}
                 width={600}
                 height={600}
                 objectFit='contain'

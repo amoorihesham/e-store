@@ -7,10 +7,11 @@ export default {
     container: {
       center: true,
       padding: {
-        DEFAULT: '1rem',
-      },
-      screens: {
-        '2xl': '1400px',
+        DEFAULT: '1rem', // Default padding for all breakpoints
+        sm: '2rem', // Padding for screens ≥ 640px
+        md: '2rem', // Padding for screens ≥ 768px
+        lg: '2rem', // Padding for screens ≥ 1024px
+        xl: '3rem', // Padding for screens ≥ 1280px
       },
     },
     fontFamily: {

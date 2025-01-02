@@ -57,15 +57,15 @@ export default function ProductsPage() {
   }, []);
 
   return (
-    <section className='py-8 min-h-svh'>
+    <section className='py-8 pageHeight'>
       <div className='container'>
         {isLoading && <Loader />}
         {!isLoading && (
           <div>
-            <div className='flex mb-10 items-center justify-between'>
+            <div className='flex mb-8 items-center gap-x-5 md:justify-between'>
               <Input
                 placeholder='Search products'
-                className='w-1/2'
+                className=' flex-1'
                 onChange={(e) => handleFiltersChange(e.target.value)}
               />
               <Select onValueChange={(categoryId) => handleFiltersChange('', categoryId)}>

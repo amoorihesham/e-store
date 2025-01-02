@@ -10,7 +10,7 @@ export default async function CategoriesList({ categories, hint }: { categories:
     <div>
       <SectionHint hint={hint} />
       <h2 className='text-3xl font-bold'>Browse By Category</h2>
-      <div className='flex items-center justify-around  mt-10'>
+      <div className='flex gap-5 items-center mt-8 justify-between overflow-x-auto'>
         {categories.slice(0, 5).map((category) => (
           <Link
             href={`/categories/${category.slug?.current}`}
@@ -23,7 +23,6 @@ export default async function CategoriesList({ categories, hint }: { categories:
               height={100}
               className='object-contain'
             />
-            <p className='text-center mt-2 font-light group-hover:text-white'>{category.title}</p>
           </Link>
         ))}
       </div>

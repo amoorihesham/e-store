@@ -11,20 +11,20 @@ export default async function page({ params }: { params: Promise<{ productId: st
   const product = await getProduct(productId);
 
   return (
-    <div className='py-12 min-h-svh'>
+    <div className='py-10 pageHeight my-auto'>
       <div className='container'>
         <Breadcrumbs
           mainPath='products'
           secPath='product'
           id={productId}
         />
-        <div className='mt-14 flex justify-between'>
-          <div className='left flex gap-10'>
-            <div className='thumbnails space-y-10'>
+        <div className='mt-8 flex flex-col gap-y-5 md:flex-row md:gap-x-5 lg:justify-between'>
+          <div className='left flex gap-5'>
+            <div className='thumbnails space-y-5'>
               {product?.images?.map((image) => (
                 <div
                   key={image._key}
-                  className='border border-primaryRed bg-gray-200 flex items-center justify-center p-2'>
+                  className='border border-primaryRed bg-gray-200 flex items-center justify-center p-2 h-[100px]'>
                   <Image
                     src={urlFor(image.asset!._ref!).url()}
                     alt={image.alt!}
@@ -44,7 +44,7 @@ export default async function page({ params }: { params: Promise<{ productId: st
               />
             </div>
           </div>
-          <div className='right space-y-5 flex-1 px-10'>
+          <div className='right space-y-3 lg:flex-1 lg:space-y-8 lg:px-10'>
             <h6 className='text-2xl font-semibold'>{product?.name}</h6>
             <div>
               <div className='flex items-center gap-5'>

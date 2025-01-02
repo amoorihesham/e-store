@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { calculatePriceAfterDiscount } from '@/lib/utils';
 import { urlFor } from '@/sanity/lib/image';
 import UpdateCartQuantity from './UpdateCartQuantity';
+import { useToast } from '@/hooks/use-toast';
 
 const AddToCartButton = ({ product }: { product: Product }) => {
   const price = product.has_discount ? calculatePriceAfterDiscount(product.base_price!, product.discount_amount!) : product.base_price;
@@ -19,6 +20,7 @@ const AddToCartButton = ({ product }: { product: Product }) => {
     image: urlFor(product.image!.asset!._ref!).url(),
   });
   const { addToCart } = useCartStore();
+  const { toast } = useToast();
 
   return (
     <>
@@ -36,7 +38,16 @@ const AddToCartButton = ({ product }: { product: Product }) => {
       <div>
         <Button
           className='bg-primaryRed hover:bg-red-700 transition-colors duration-300 w-full'
-          onClick={() => addToCart(productDetails)}>
+          onClick={async () => {
+            await addToCart(productDetails);
+            toast({
+              title: 'Item added to cart',
+              description: productDetails.name,
+              type: 'background',
+              duration: 2000,
+              variant: 'default',
+            });
+          }}>
           Buy Now
         </Button>
       </div>

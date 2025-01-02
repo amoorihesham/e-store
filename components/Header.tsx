@@ -1,9 +1,11 @@
 'use client';
 import Link from 'next/link';
+import Form from 'next/form';
 import { ClerkLoaded, SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import { List, Menu, ShoppingBag } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import useCartStore from '@/store/useCartStore';
+import { Input } from './ui/input';
 
 const Header = () => {
   const CartCount = useCartStore((state) => state.items.length);
@@ -101,12 +103,7 @@ const Header = () => {
               Products
             </Link>
             <Link
-              href={'/'}
-              className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300'>
-              Search
-            </Link>
-            <Link
-              href={'/'}
+              href={'/contact'}
               className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300'>
               Contact
             </Link>
@@ -114,6 +111,12 @@ const Header = () => {
           <div className='hidden items-center gap-5 md:flex'>
             <ClerkLoaded>
               <div className='flex items-center gap-3'>
+                <Form action='/search'>
+                  <Input
+                    placeholder='Search'
+                    name='query'
+                  />
+                </Form>
                 <Link
                   href={'/cart'}
                   className=' relative'>

@@ -9,17 +9,17 @@ export default async function Home() {
   const products = await getProducts();
   const categories = await getCategories();
   const categoriesBanners = await getCategoriesBanners();
-
+  // console.log(products);
   return (
-    <section className=' py-8'>
-      <div className='container space-y-16'>
+    <section className='pageHeight'>
+      <div className='container '>
         <Banner />
         <ProductsList
           products={products}
           title='Flash Sale'
           hint='today'
         />
-        <hr className='border-gray-200' />
+        <hr className='border-gray-200 mb-8' />
         <CategoriesList
           hint='categories'
           categories={categories}

@@ -5,6 +5,8 @@ import Header from '@/components/Header';
 import { cn } from '@/lib/utils';
 import '../globals.css';
 import Footer from '@/components/Footer';
+import { Toaster } from '@/components/ui/toaster';
+import { SanityLive } from '@/sanity/lib/live';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -27,9 +29,11 @@ export default function RootLayout({
       <html lang='en'>
         <body className={cn('font-inter antialiased', inter.variable)}>
           <main>
+            <Toaster />
             <Header />
             {children}
             <Footer />
+            <SanityLive />
           </main>
         </body>
       </html>
