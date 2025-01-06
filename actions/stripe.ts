@@ -36,7 +36,7 @@ export default async function createStripeCheckoutSession(items: cartItem[], met
       metadata,
       mode: 'payment',
       allow_promotion_codes: true,
-      success_url: `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`}`,
+      success_url: `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/success` : `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`}`,
       cancel_url: `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : `http://localhost:3000/cart`}`,
       line_items: items.map((item) => ({
         quantity: item.quantity,
