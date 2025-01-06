@@ -415,7 +415,7 @@ export type GET_PRODUCTS_QUERYResult = Array<{
   base_price?: number;
 }>;
 // Variable: GET_SEARCHED_PRODUCTS_QUERY
-// Query: *[_type=='product' && name match $searchTerm]{...,"category":category->{_id,title}}
+// Query: *[_type=='product' && name match $searchTerm]{...,"category":category->{...}}
 export type GET_SEARCHED_PRODUCTS_QUERYResult = Array<{
   _id: string;
   _type: "product";
@@ -427,7 +427,25 @@ export type GET_SEARCHED_PRODUCTS_QUERYResult = Array<{
   desc?: string;
   category: {
     _id: string;
-    title: string | null;
+    _type: "category";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    slug?: Slug;
+    description?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
   } | null;
   image?: {
     asset?: {
@@ -646,7 +664,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type=='banner']": GET_BANNERS_QUERYResult;
     "*[_type=='product']{...,\"category\":category->{...}}": GET_PRODUCTS_QUERYResult;
-    "*[_type=='product' && name match $searchTerm]{...,\"category\":category->{_id,title}}": GET_SEARCHED_PRODUCTS_QUERYResult;
+    "*[_type=='product' && name match $searchTerm]{...,\"category\":category->{...}}": GET_SEARCHED_PRODUCTS_QUERYResult;
     "*[_type=='product' && slug.current == $productId][0]{...,\"category\":category->{...}}": GET_PRODUCT_QUERYResult;
     "*[_type=='category']": GET_CATEGORIES_QUERYResult;
     "*[_type=='category_banner']": GET_CATEGORIES_BANNER_QUERYResult;
