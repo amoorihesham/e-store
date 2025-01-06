@@ -1,6 +1,6 @@
 'use client';
 
-import { Category, Product } from '@/sanity.types';
+import { Category, GET_PRODUCTS_QUERYResult } from '@/sanity.types';
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -10,11 +10,10 @@ import { Star } from 'lucide-react';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-const ProductsPageList = ({ products, categories }: { products: Product[]; categories: Category[] }) => {
+const ProductsPageList = ({ products, categories }: { products: GET_PRODUCTS_QUERYResult; categories: Category[] }) => {
   const [productsList, setProductsList] = useState(products);
 
   const [search, setSearch] = useState('');
-  console.log(productsList);
 
   const handleFiltersChange = async (category: string) => {
     console.log(category);
