@@ -17,9 +17,9 @@ import {
   GET_FEATURES_QUERYResult,
   GET_NODATA_IMAGE_QUERYResult,
   GET_PRODUCT_QUERYResult,
+  GET_PRODUCTS_QUERYResult,
   GET_SEARCHED_PRODUCTS_QUERYResult,
   GET_USER_ORDERS_QUERYResult,
-  Product,
 } from '@/sanity.types';
 
 export const getBanners = async (): Promise<GET_BANNERS_QUERYResult> => {
@@ -30,12 +30,12 @@ export const getBanners = async (): Promise<GET_BANNERS_QUERYResult> => {
   return response.data || [];
 };
 
-export const getProducts = async (): Promise<Product[]> => {
-  const { data }: Product[] = await sanityFetch({
+export const getProducts = async (): Promise<GET_PRODUCTS_QUERYResult> => {
+  const response = await sanityFetch({
     query: GET_PRODUCTS_QUERY,
   });
 
-  return data || [];
+  return response.data || [];
 };
 
 export const getProduct = async (productId: string): Promise<GET_PRODUCT_QUERYResult> => {
