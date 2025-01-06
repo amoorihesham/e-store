@@ -1,11 +1,11 @@
-import { Product } from '@/sanity.types';
+import { GET_PRODUCTS_QUERYResult } from '@/sanity.types';
 
 import SectionHint from './SectionHint';
 
 import NoData from './NoData';
 import ProductCard from './ProductCard';
 
-const ProductsList = ({ products, title, hint }: { products: Product[]; title: string; hint: string }) => {
+const ProductsList = ({ products, title, hint }: { products: GET_PRODUCTS_QUERYResult; title: string; hint: string }) => {
   return (
     <div>
       <SectionHint hint={hint} />

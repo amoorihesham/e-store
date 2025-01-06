@@ -2,7 +2,7 @@
 
 import useCartStore, { cartItem } from '@/store/useCartStore';
 import { Button } from './ui/button';
-import { Product } from '@/sanity.types';
+import { GET_PRODUCT_QUERYResult } from '@/sanity.types';
 import { Heart } from 'lucide-react';
 import { useState } from 'react';
 import { calculatePriceAfterDiscount } from '@/lib/utils';
@@ -10,14 +10,14 @@ import { urlFor } from '@/sanity/lib/image';
 import UpdateCartQuantity from './UpdateCartQuantity';
 import { useToast } from '@/hooks/use-toast';
 
-const AddToCartButton = ({ product }: { product: Product }) => {
-  const price = product.has_discount ? calculatePriceAfterDiscount(product.base_price!, product.discount_amount!) : product.base_price;
+const AddToCartButton = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
+  const price = product!.has_discount ? calculatePriceAfterDiscount(product!.base_price!, product!.discount_amount!) : product!.base_price;
   const [productDetails, setProductDetails] = useState<cartItem>({
-    _id: product._id,
+    _id: product!._id,
     base_price: price!,
     quantity: 1,
-    name: product.name!,
-    image: urlFor(product.image!.asset!._ref!).url(),
+    name: product!.name!,
+    image: urlFor(product!.image!.asset!._ref!).url(),
   });
   const { addToCart } = useCartStore();
   const { toast } = useToast();

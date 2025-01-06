@@ -351,7 +351,7 @@ export type GET_BANNERS_QUERYResult = Array<{
   discount_amount?: number;
 }>;
 // Variable: GET_PRODUCTS_QUERY
-// Query: *[_type=='product']{...,"category":category->{_id,title}}
+// Query: *[_type=='product']{...,"category":category->{...}}
 export type GET_PRODUCTS_QUERYResult = Array<{
   _id: string;
   _type: "product";
@@ -363,7 +363,25 @@ export type GET_PRODUCTS_QUERYResult = Array<{
   desc?: string;
   category: {
     _id: string;
-    title: string | null;
+    _type: "category";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    slug?: Slug;
+    description?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
   } | null;
   image?: {
     asset?: {
@@ -443,7 +461,7 @@ export type GET_SEARCHED_PRODUCTS_QUERYResult = Array<{
   base_price?: number;
 }>;
 // Variable: GET_PRODUCT_QUERY
-// Query: *[_type=='product' && slug.current == $productId][0]
+// Query: *[_type=='product' && slug.current == $productId][0]{...,"category":category->{...}}
 export type GET_PRODUCT_QUERYResult = {
   _id: string;
   _type: "product";
@@ -453,12 +471,28 @@ export type GET_PRODUCT_QUERYResult = {
   name?: string;
   slug?: Slug;
   desc?: string;
-  category?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "category";
-  };
+  category: {
+    _id: string;
+    _type: "category";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    title?: string;
+    slug?: Slug;
+    description?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+  } | null;
   image?: {
     asset?: {
       _ref: string;
@@ -576,7 +610,7 @@ export type GET_FEATURES_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: GET_USER_ORDERS_QUERY
-// Query: *[_type=='order' && clerkUserId == $clerkUserId]
+// Query: *[_type=='order' && clerkUserId == $clerkUserId] | order(orderDate desc)
 export type GET_USER_ORDERS_QUERYResult = Array<{
   _id: string;
   _type: "order";
@@ -611,13 +645,13 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type=='banner']": GET_BANNERS_QUERYResult;
-    "*[_type=='product']{...,\"category\":category->{_id,title}}": GET_PRODUCTS_QUERYResult;
+    "*[_type=='product']{...,\"category\":category->{...}}": GET_PRODUCTS_QUERYResult;
     "*[_type=='product' && name match $searchTerm]{...,\"category\":category->{_id,title}}": GET_SEARCHED_PRODUCTS_QUERYResult;
-    "*[_type=='product' && slug.current == $productId][0]": GET_PRODUCT_QUERYResult;
+    "*[_type=='product' && slug.current == $productId][0]{...,\"category\":category->{...}}": GET_PRODUCT_QUERYResult;
     "*[_type=='category']": GET_CATEGORIES_QUERYResult;
     "*[_type=='category_banner']": GET_CATEGORIES_BANNER_QUERYResult;
     "*[_type=='notFound']{_id,image}": GET_NODATA_IMAGE_QUERYResult;
     "*[_type=='feature']{_id,title,description,icon}": GET_FEATURES_QUERYResult;
-    "*[_type=='order' && clerkUserId == $clerkUserId]": GET_USER_ORDERS_QUERYResult;
+    "*[_type=='order' && clerkUserId == $clerkUserId] | order(orderDate desc)": GET_USER_ORDERS_QUERYResult;
   }
 }
