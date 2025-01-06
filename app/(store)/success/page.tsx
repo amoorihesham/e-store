@@ -32,11 +32,18 @@ const SuccessPage = () => {
           <div className='flex flex-col items-center mt-5 gap-y-5 '>
             <h3 className='text-xl font-semibold'>Successful Payment</h3>
             <p className='text-xs '>{orderNumber}</p>
-            <Link
-              href={`/order/${orderNumber}`}
-              className='bg-primaryGreen px-5 py-2 text-white rounded-md hover:bg-green-600 transition-colors duration-300'>
-              View order
-            </Link>
+            <div className='flex items-center gap-3'>
+              <Link
+                href={`/orders`}
+                className='bg-primaryGreen px-5 py-2 text-white rounded-md hover:bg-green-600 transition-colors duration-300'>
+                View orders
+              </Link>
+              <Link
+                href={`/`}
+                className='bg-white px-5 py-2 text-black rounded-md hover:bg-gray-50 transition-colors duration-300'>
+                Continuo Shopping
+              </Link>
+            </div>
           </div>
         </div>
       </div>

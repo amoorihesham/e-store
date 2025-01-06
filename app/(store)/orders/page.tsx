@@ -5,7 +5,7 @@ import { currentUser } from '@clerk/nextjs/server';
 export default async function OrdersPage() {
   const { id } = await currentUser();
   const orders = await getUserOrders(id!);
-  console.log(orders);
+  console.log(process.env.NODE_ENV);
   return (
     <div className='pageHeight'>
       <div className='container flex items-center justify-center'>
