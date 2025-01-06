@@ -2,15 +2,16 @@
 import Link from 'next/link';
 import Form from 'next/form';
 import { ClerkLoaded, SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
-import { List, Menu, ShoppingBag } from 'lucide-react';
+import { List, LogIn, Menu, ShoppingBag } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import useCartStore from '@/store/useCartStore';
 import { Input } from './ui/input';
+import { Button } from './ui/button';
 
 const Header = () => {
   const CartCount = useCartStore((state) => state.items.length);
   return (
-    <header className='py-4 shadow-md'>
+    <header className='py-4 shadow-md sticky top-0 bg-white z-50'>
       <div className='container'>
         {/* Mobile navbar */}
         <div className='md:hidden flex items-center justify-between'>
@@ -51,6 +52,20 @@ const Header = () => {
                     Contact
                   </Link>
                 </div>
+                <Form
+                  action='/search'
+                  className='space-y-2 mt-5'>
+                  <Input
+                    placeholder='Search'
+                    name='query'
+                    className='text-[12px] md:text-[16px]'
+                  />
+                  <Button
+                    className='w-full'
+                    variant='outline'>
+                    Search
+                  </Button>
+                </Form>
               </SheetContent>
             </Sheet>
 
@@ -60,8 +75,9 @@ const Header = () => {
               e-Store
             </Link>
           </div>
+
           <ClerkLoaded>
-            <div className='flex items-center gap-3'>
+            <div className='flex items-center gap-1'>
               <Link
                 href={'/cart'}
                 className=' relative'>
@@ -76,7 +92,13 @@ const Header = () => {
                 <UserButton />
               </SignedIn>
               <SignedOut>
-                <SignInButton mode='modal' />
+                <SignInButton mode='modal'>
+                  <Button
+                    variant='ghost'
+                    className='px-2'>
+                    <LogIn className='w-5 h-5' /> Login
+                  </Button>
+                </SignInButton>
               </SignedOut>
             </div>
           </ClerkLoaded>
@@ -131,7 +153,11 @@ const Header = () => {
                   <UserButton />
                 </SignedIn>
                 <SignedOut>
-                  <SignInButton mode='modal' />
+                  <SignInButton mode='modal'>
+                    <Button variant='ghost'>
+                      <LogIn className='w-5 h-5' /> Login
+                    </Button>
+                  </SignInButton>
                 </SignedOut>
               </div>
             </ClerkLoaded>

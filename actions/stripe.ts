@@ -10,9 +10,6 @@ export type Metadata = {
   clerkUserId: string;
 };
 
-// const successUrl = `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : `http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}&orderNumber=${metadata.orderNumber}`}`;
-// const successUrl = `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'}`;
-
 export default async function createStripeCheckoutSession(items: cartItem[], metadata: Metadata) {
   try {
     const isItemsDoesntHavePrice = items.filter((item) => !item.base_price);

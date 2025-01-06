@@ -1,16 +1,13 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 import { client } from '@/sanity/lib/client';
 import { GET_CATEGORIES_QUERYResult, GET_PRODUCTS_QUERYResult } from '@/sanity.types';
 import { GET_CATEGORIES_QUERY, GET_PRODUCTS_QUERY } from '@/sanity/lib/queries';
-import { urlFor } from '@/sanity/lib/image';
-import { calculatePriceAfterDiscount, currencyFormatter } from '@/lib/utils';
-import { Star } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import Loader from '@/components/Loader';
+import ProductCard from '@/components/ProductCard';
+import NoData from '@/components/NoData';
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<GET_PRODUCTS_QUERYResult>([]);
@@ -56,92 +53,50 @@ export default function ProductsPage() {
     handle();
   }, []);
 
+  if (isLoading) {
+    return (
+      <section className='py-8 pageHeight'>
+        <div className='container'>
+          <Loader />
+        </div>
+      </section>
+    );
+  }
   return (
     <section className='py-8 pageHeight'>
       <div className='container'>
-        {isLoading && <Loader />}
-        {!isLoading && (
-          <div>
-            <div className='flex mb-8 items-center gap-x-5 md:justify-between'>
-              <Input
-                placeholder='Search products'
-                className=' flex-1'
-                onChange={(e) => handleFiltersChange(e.target.value)}
+        <div className='flex mb-8 items-center gap-x-5 md:justify-between'>
+          <Input
+            placeholder='Search products'
+            className=' flex-1'
+            onChange={(e) => handleFiltersChange(e.target.value)}
+          />
+          <Select onValueChange={(categoryId) => handleFiltersChange('', categoryId)}>
+            <SelectTrigger className='w-[180px]'>
+              <SelectValue placeholder='Category' />
+            </SelectTrigger>
+            <SelectContent>
+              {categories.map((category) => (
+                <SelectItem
+                  value={category._id}
+                  key={category._id}>
+                  {category.title}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        {filteredProducts.length ? (
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 '>
+            {filteredProducts!.map((product) => (
+              <ProductCard
+                key={product._id}
+                product={product}
               />
-              <Select onValueChange={(categoryId) => handleFiltersChange('', categoryId)}>
-                <SelectTrigger className='w-[180px]'>
-                  <SelectValue placeholder='Category' />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map((category) => (
-                    <SelectItem
-                      value={category._id}
-                      key={category._id}>
-                      {category.title}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            {!filteredProducts.length && <h1>No Products</h1>}
-            {!!filteredProducts.length && (
-              <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 '>
-                {filteredProducts!.map((product) => (
-                  <Link
-                    href={`/product/${product.slug?.current}`}
-                    key={product._id}
-                    className=' rounded-md overflow-hidden hover:shadow-md transition-shadow duration-300 group'>
-                    <div className='overflow-hidden bg-gray-100 flex items-center justify-center py-3'>
-                      <Image
-                        src={urlFor(product.image?.asset?._ref as string).url()}
-                        alt={product.image?.alt as string}
-                        width={200}
-                        height={400}
-                        className='object-contain  group-hover:scale-110 transition-transform duration-500 '
-                      />
-                    </div>
-                    <div className='mt-3 space-y-3 px-3 py-3'>
-                      <h1 className='font-bold text-sm'>{product.name}</h1>
-                      <div className='flex items-center gap-5'>
-                        <p className='text-primaryRed font-semibold  text-sm'>{currencyFormatter(calculatePriceAfterDiscount(product.base_price!, product.discount_amount!))}</p>
-                        <p className='text-muted-foreground line-through text-xs'>${product.base_price}</p>
-                      </div>
-                      <div className='flex items-center gap-5'>
-                        <div className='flex items-center'>
-                          <Star
-                            fill='gold'
-                            color='gold'
-                            size={20}
-                          />
-                          <Star
-                            fill='gold'
-                            color='gold'
-                            size={20}
-                          />
-                          <Star
-                            fill='gold'
-                            color='gold'
-                            size={20}
-                          />
-                          <Star
-                            fill='gold'
-                            color='gold'
-                            size={20}
-                          />
-                          <Star
-                            fill='gold'
-                            color='gold'
-                            size={20}
-                          />
-                        </div>
-                        <span className='text-muted-foreground text-sm'>(88)</span>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            )}
+            ))}
           </div>
+        ) : (
+          <NoData message='No Products' />
         )}
       </div>
     </section>
