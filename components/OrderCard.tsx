@@ -2,7 +2,7 @@ import { currencyFormatter } from '@/lib/utils';
 import { Order } from '@/sanity.types';
 import React from 'react';
 
-const OrderCard = ({ orderNumber, orderDate, status, currency, totalPrice, products }: Order) => {
+const OrderCard = ({ orderNumber, orderDate, status, totalPrice }: Order) => {
   return (
     <div className='p-2 border rounded-md my-5 space-y-2'>
       <div>

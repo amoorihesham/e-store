@@ -11,7 +11,7 @@ import createStripeCheckoutSession, { Metadata } from '@/actions/stripe';
 
 const CartItemsList = () => {
   const { isSignedIn, user } = useUser();
-  const { items, clearCart } = useCartStore();
+  const { items } = useCartStore();
   const totalPrice = useCartStore((state) => state.getTotalPrice());
   const [isLoading, setIsLoading] = useState(false);
 
