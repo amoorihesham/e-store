@@ -8,6 +8,7 @@ import {
   GET_PRODUCT_QUERY,
   GET_PRODUCTS_QUERY,
   GET_SEARCHED_PRODUCTS_QUERY,
+  GET_USER_ORDERS_QUERY,
 } from '../../sanity/lib/queries';
 import {
   GET_BANNERS_QUERYResult,
@@ -16,8 +17,8 @@ import {
   GET_FEATURES_QUERYResult,
   GET_NODATA_IMAGE_QUERYResult,
   GET_PRODUCT_QUERYResult,
-  GET_PRODUCTS_QUERYResult,
   GET_SEARCHED_PRODUCTS_QUERYResult,
+  GET_USER_ORDERS_QUERYResult,
   Product,
 } from '@/sanity.types';
 
@@ -84,5 +85,13 @@ export const getSearchedProducts = async (searchTerm: string | string[] | undefi
     params: { searchTerm },
   });
 
+  return response.data || [];
+};
+
+export const getUserOrders = async (clerkUserId: string): Promise<GET_USER_ORDERS_QUERYResult> => {
+  const response = await sanityFetch({
+    query: GET_USER_ORDERS_QUERY,
+    params: { clerkUserId },
+  });
   return response.data || [];
 };

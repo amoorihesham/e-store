@@ -351,7 +351,7 @@ export type GET_BANNERS_QUERYResult = Array<{
   discount_amount?: number;
 }>;
 // Variable: GET_PRODUCTS_QUERY
-// Query: *[_type=='product']{...,"category":category->{_id,title,_ref}}
+// Query: *[_type=='product']{...,"category":category->{_id,title}}
 export type GET_PRODUCTS_QUERYResult = Array<{
   _id: string;
   _type: "product";
@@ -364,7 +364,6 @@ export type GET_PRODUCTS_QUERYResult = Array<{
   category: {
     _id: string;
     title: string | null;
-    _ref: null;
   } | null;
   image?: {
     asset?: {
@@ -576,18 +575,49 @@ export type GET_FEATURES_QUERYResult = Array<{
     _type: "image";
   } | null;
 }>;
+// Variable: GET_USER_ORDERS_QUERY
+// Query: *[_type=='order' && clerkUserId == $clerkUserId]
+export type GET_USER_ORDERS_QUERYResult = Array<{
+  _id: string;
+  _type: "order";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  orderNumber?: string;
+  stripeCheckoutSessionId?: string;
+  stripeCustomerId?: string;
+  clerkUserId?: string;
+  customerName?: string;
+  customerEmail?: string;
+  stripePaymentIntentId?: string;
+  totalPrice?: number;
+  status?: string;
+  orderDate?: string;
+  currency?: string;
+  products?: Array<{
+    product?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "product";
+    };
+    quantity?: number;
+    _key: string;
+  }>;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type=='banner']": GET_BANNERS_QUERYResult;
-    "*[_type=='product']{...,\"category\":category->{_id,title,_ref}}": GET_PRODUCTS_QUERYResult;
+    "*[_type=='product']{...,\"category\":category->{_id,title}}": GET_PRODUCTS_QUERYResult;
     "*[_type=='product' && name match $searchTerm]{...,\"category\":category->{_id,title}}": GET_SEARCHED_PRODUCTS_QUERYResult;
     "*[_type=='product' && slug.current == $productId][0]": GET_PRODUCT_QUERYResult;
     "*[_type=='category']": GET_CATEGORIES_QUERYResult;
     "*[_type=='category_banner']": GET_CATEGORIES_BANNER_QUERYResult;
     "*[_type=='notFound']{_id,image}": GET_NODATA_IMAGE_QUERYResult;
     "*[_type=='feature']{_id,title,description,icon}": GET_FEATURES_QUERYResult;
+    "*[_type=='order' && clerkUserId == $clerkUserId]": GET_USER_ORDERS_QUERYResult;
   }
 }

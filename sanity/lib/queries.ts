@@ -8,3 +8,4 @@ export const GET_CATEGORIES_QUERY = defineQuery(`*[_type=='category']`);
 export const GET_CATEGORIES_BANNER_QUERY = defineQuery(`*[_type=='category_banner']`);
 export const GET_NODATA_IMAGE_QUERY = defineQuery(`*[_type=='notFound']{_id,image}`);
 export const GET_FEATURES_QUERY = defineQuery(`*[_type=='feature']{_id,title,description,icon}`);
+export const GET_USER_ORDERS_QUERY = defineQuery(`*[_type=='order' && clerkUserId == $clerkUserId]`);
