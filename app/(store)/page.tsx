@@ -1,10 +1,9 @@
 import Banner from '@/components/Banner';
-import CategoryBanner from '@/components/CategoryBanner';
 import FeaturesList from '@/components/FeaturesList';
 import NoData from '@/components/NoData';
 import ProductCard from '@/components/ProductCard';
 import RenderList from '@/components/RenderList';
-import { getBanners, getCategoriesBanners, getProducts } from '@/lib/sanity/functions';
+import { getBanners, getProducts } from '@/lib/sanity/functions';
 import Link from 'next/link';
 
 export default async function Home() {
