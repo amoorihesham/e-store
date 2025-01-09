@@ -8,6 +8,7 @@ import RemoveFromCartButton from './RemoveFromCartButton';
 import { useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 import createStripeCheckoutSession, { Metadata } from '@/actions/stripe';
+import { toast } from '@/hooks/use-toast';
 
 const CartItemsList = () => {
   const { isSignedIn, user } = useUser();
@@ -16,8 +17,15 @@ const CartItemsList = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCheckout = async () => {
-    if (!isSignedIn) return;
     setIsLoading(true);
+    if (!isSignedIn) {
+      toast({
+        title: 'Error',
+        description: 'You need to sign in to checkout',
+        duration: 2000,
+        variant: 'destructive',
+      });
+    }
     try {
       const metadata: Metadata = {
         orderNumber: crypto.randomUUID(),

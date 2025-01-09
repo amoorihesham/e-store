@@ -30,7 +30,7 @@ const AddToCartButton = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
         title: 'Error',
         description: 'You need to be signed in to add items to the cart',
         duration: 2000,
-        variant: 'default',
+        variant: 'destructive',
       });
       return;
     }
