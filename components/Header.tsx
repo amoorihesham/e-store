@@ -113,7 +113,7 @@ const Header = () => {
               e-Store
             </Link>
           </div>
-          <div className='flex items-center gap-5'>
+          {/* <div className='flex items-center gap-5'>
             <Link
               href={'/'}
               className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300'>
@@ -129,14 +129,17 @@ const Header = () => {
               className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300'>
               Contact
             </Link>
-          </div>
-          <div className='hidden items-center gap-5 md:flex'>
+          </div> */}
+          <div className='hidden items-center gap-5 md:flex flex-1 justify-end'>
             <ClerkLoaded>
-              <div className='flex items-center gap-3'>
-                <Form action='/search'>
+              <div className='flex items-center gap-3 flex-1 justify-end'>
+                <Form
+                  action='/search'
+                  className='flex-1 flex items-center justify-end'>
                   <Input
                     placeholder='Search'
                     name='query'
+                    className='w-1/2'
                   />
                 </Form>
                 <Link

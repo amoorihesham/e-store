@@ -1,5 +1,6 @@
 'use client';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+
 import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
 
