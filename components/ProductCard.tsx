@@ -7,10 +7,7 @@ import Link from 'next/link';
 
 const ProductCard = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
   return (
-    <Link
-      href={`/product/${product!.slug?.current}`}
-      key={product!._id}
-      className='rounded-md overflow-hidden hover:shadow-lg transition-shadow duration-300 group'>
+    <Link href={`/product/${product!.slug?.current}`}>
       {/* Image Section */}
       <div className='relative w-full h-64 bg-gray-100 flex items-center justify-center overflow-hidden'>
         <Image
