@@ -9,6 +9,7 @@ import { calculatePriceAfterDiscount } from '@/lib/utils';
 import { urlFor } from '@/sanity/lib/image';
 import UpdateCartQuantity from './UpdateCartQuantity';
 import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@clerk/nextjs';
 
 const AddToCartButton = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
   const price = product!.has_discount ? calculatePriceAfterDiscount(product!.base_price!, product!.discount_amount!) : product!.base_price;
@@ -19,8 +20,30 @@ const AddToCartButton = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
     name: product!.name!,
     image: urlFor(product!.image!.asset!._ref!).url(),
   });
+  const { isSignedIn } = useUser();
   const { addToCart } = useCartStore();
   const { toast } = useToast();
+
+  const handleAddToCart = async () => {
+    if (!isSignedIn) {
+      toast({
+        title: 'Error',
+        description: 'You need to be signed in to add items to the cart',
+        duration: 2000,
+        variant: 'default',
+      });
+      return;
+    }
+
+    await addToCart(productDetails);
+    toast({
+      title: 'Item added to cart',
+      description: productDetails.name,
+      type: 'background',
+      duration: 2000,
+      variant: 'default',
+    });
+  };
 
   return (
     <>
@@ -38,17 +61,8 @@ const AddToCartButton = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
       <div>
         <Button
           className='bg-primaryRed hover:bg-red-700 transition-colors duration-300 w-full'
-          onClick={async () => {
-            await addToCart(productDetails);
-            toast({
-              title: 'Item added to cart',
-              description: productDetails.name,
-              type: 'background',
-              duration: 2000,
-              variant: 'default',
-            });
-          }}>
-          Buy Now
+          onClick={handleAddToCart}>
+          Add To Cart
         </Button>
       </div>
     </>
