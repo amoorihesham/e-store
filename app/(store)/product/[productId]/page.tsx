@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import { urlFor } from '@/sanity/lib/image';
 import { getProduct } from '@/lib/sanity/functions';
 import { calculatePriceAfterDiscount, currencyFormatter } from '@/lib/utils';
 import { Star } from 'lucide-react';
 import AddToCartButton from '@/components/AddToCartButton';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import CarouselSlider from '@/components/CarouselSlider';
 
 export default async function page({ params }: { params: Promise<{ productId: string }> }) {
   const { productId } = await params;
@@ -19,32 +19,10 @@ export default async function page({ params }: { params: Promise<{ productId: st
           id={productId}
         />
         <div className='mt-8 flex flex-col gap-y-5 md:flex-row md:gap-x-5 lg:justify-between'>
-          <div className='left flex gap-5'>
-            <div className='thumbnails space-y-5'>
-              {product?.images?.map((image) => (
-                <div
-                  key={image._key}
-                  className='border border-primaryRed bg-gray-200 flex items-center justify-center p-2 h-[100px]'>
-                  <Image
-                    src={urlFor(image.asset!._ref!).url()}
-                    alt={image.alt!}
-                    width={100}
-                    height={100}
-                  />
-                </div>
-              ))}
-            </div>
-            <div className='bg-gray-200 p-10 flex items-center justify-center'>
-              <Image
-                src={urlFor(product!.image!.asset!._ref!).url()}
-                alt={product!.image!.alt!}
-                width={400}
-                height={400}
-                objectFit='contain'
-              />
-            </div>
+          <div className='left max-w-[450px] flex items-center bg-gray-200'>
+            <CarouselSlider images={product?.images} />
           </div>
-          <div className='right space-y-3 lg:flex-1 lg:space-y-8 lg:px-10'>
+          <div className='right space-y-3 lg:flex-1 lg:space-y-8 lg:px-14 '>
             <h6 className='text-2xl font-semibold'>{product?.name}</h6>
             <div>
               <div className='flex items-center gap-5'>
