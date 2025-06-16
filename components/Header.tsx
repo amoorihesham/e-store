@@ -7,12 +7,13 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import useCartStore from '@/store/useCartStore';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import MaxWidthContainer from './MaxWidthContainer';
 
 const Header = () => {
   const CartCount = useCartStore((state) => state.items.length);
   return (
     <header className='py-4 shadow-md sticky top-0 bg-white z-50'>
-      <div className='container'>
+      <MaxWidthContainer>
         {/* Mobile navbar */}
         <div className='md:hidden flex items-center justify-between'>
           <div className='flex items-center gap-2'>
@@ -82,7 +83,9 @@ const Header = () => {
                 href={'/cart'}
                 className=' relative'>
                 <ShoppingBag className='h-5 w-5' />
-                <span className=' absolute -top-2 left-0.5 w-4 h-4 bg-primaryRed rounded-full flex items-center justify-center text-white text-xs'>{CartCount}</span>
+                <span className=' absolute -top-2 left-0.5 w-4 h-4 bg-primaryRed rounded-full flex items-center justify-center text-white text-xs'>
+                  {CartCount}
+                </span>
               </Link>
               <SignedIn>
                 <Link href={'/orders'}>
@@ -146,7 +149,9 @@ const Header = () => {
                   href={'/cart'}
                   className=' relative'>
                   <ShoppingBag className='h-5 w-5' />
-                  <span className=' absolute -top-2 left-0.5 w-4 h-4 bg-primaryRed rounded-full flex items-center justify-center text-white text-xs'>{CartCount}</span>
+                  <span className=' absolute -top-2 left-0.5 w-4 h-4 bg-primaryRed rounded-full flex items-center justify-center text-white text-xs'>
+                    {CartCount}
+                  </span>
                 </Link>
                 <SignedIn>
                   <Link href={'/orders'}>
@@ -166,7 +171,7 @@ const Header = () => {
             </ClerkLoaded>
           </div>
         </div>
-      </div>
+      </MaxWidthContainer>
     </header>
   );
 };

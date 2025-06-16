@@ -5,7 +5,7 @@ if (!process.env.STRIPE_SECRET!) {
 }
 
 const stripe = new Stripe(process.env.STRIPE_SECRET!, {
-  apiVersion: '2024-12-18.acacia',
+  apiVersion: '2025-05-28.basil',
 });
 
 export default stripe;

@@ -9,7 +9,7 @@ export default async function OrdersPage() {
   return (
     <div className='pageHeight'>
       <div className='container flex items-center justify-center'>
-        <div className='bg-white shadow-md p-5 rounded-md w-[100%] md:w-[50%]'>
+        <div className='bg-white shadow-md p-5 rounded-md w-full md:w-[50%]'>
           <h6 className='text-xl font-bold'>My Orders</h6>
           {orders.map((order) => (
             <OrderCard

@@ -5,7 +5,7 @@ interface IRenderListProps<T> {
   listHeading: string | (() => ReactNode);
   keyExtractor: (item: T) => Key;
   render: (item: T, index: number) => ReactNode;
-  EmptyComponent?: ElementType | (() => JSX.Element);
+  EmptyComponent?: ElementType | (() => React.JSX.Element);
 }
 
 const RenderList = <T,>({ keyExtractor, listHeading, data, render, EmptyComponent }: IRenderListProps<T>) => {

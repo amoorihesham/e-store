@@ -12,7 +12,7 @@ export default async function Home() {
   const banners = await getBanners();
   return (
     <section className='pageHeight'>
-      <div className='container space-y-14 '>
+      <div className=' space-y-14 '>
         <Banner banners={banners} />
         <div>
           <RenderList

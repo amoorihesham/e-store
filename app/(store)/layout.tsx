@@ -7,6 +7,7 @@ import '../globals.css';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { SanityLive } from '@/sanity/lib/live';
+import MaxWidthContainer from '@/components/MaxWidthContainer';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -28,13 +29,13 @@ export default function RootLayout({
     <ClerkProvider dynamic>
       <html lang='en'>
         <body className={cn('font-inter antialiased', inter.variable)}>
+          <Toaster />
+          <Header />
           <main>
-            <Toaster />
-            <Header />
-            {children}
-            <Footer />
-            <SanityLive />
+            <MaxWidthContainer>{children}</MaxWidthContainer>
           </main>
+          <Footer />
+          <SanityLive />
         </body>
       </html>
     </ClerkProvider>

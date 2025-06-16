@@ -26,7 +26,7 @@ const CategoryBanner = ({ banners }: { banners: GET_CATEGORIES_BANNER_QUERYResul
                 width={600}
                 height={600}
                 objectFit='contain'
-                className=' bg-gradient-to-t from-transparent to-primaryRed/70 rounded-full overflow-visible '
+                className=' bg-linear-to-t from-transparent to-primaryRed/70 rounded-full overflow-visible '
               />
             </div>
           </div>
