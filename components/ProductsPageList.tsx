@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';
-import { calculatePriceAfterDiscount, currencyFormatter } from '@/lib/utils';
+import { calculateDiscountedPrice, formatPrice } from '@/lib/utils';
 import { Star } from 'lucide-react';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -65,7 +65,9 @@ const ProductsPageList = ({ products, categories }: { products: GET_PRODUCTS_QUE
             <div className='mt-3 space-y-3 px-3 py-3'>
               <h1 className='font-bold text-sm'>{product.name}</h1>
               <div className='flex items-center gap-5'>
-                <p className='text-primaryRed font-semibold  text-sm'>{currencyFormatter(calculatePriceAfterDiscount(product.base_price!, product.discount_amount!))}</p>
+                <p className='text-primaryRed font-semibold  text-sm'>
+                  {formatPrice(calculateDiscountedPrice(product.base_price!, product.discount_amount!))}
+                </p>
                 <p className='text-muted-foreground line-through text-xs'>${product.base_price}</p>
               </div>
               <div className='flex items-center gap-5'>
