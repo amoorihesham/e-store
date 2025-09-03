@@ -9,7 +9,7 @@ import Image from 'next/image';
 const OrderDetailsPage = async ({ params }: { params: Promise<{ orderNumber: string }> }) => {
   const { orderNumber } = await params;
   const order = await getOrderDetails(orderNumber);
-  console.log(order);
+
   return (
     <MaxWidthContainer className='py-8'>
       <div className='flex items-start justify-between gap-x-10'>
