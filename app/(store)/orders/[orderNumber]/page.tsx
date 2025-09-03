@@ -1,7 +1,7 @@
 import MaxWidthContainer from '@/components/MaxWidthContainer';
 import { Button } from '@/components/ui/button';
 import { getOrderDetails } from '@/lib/sanity/functions';
-import { cn, formatDateTime, formatPrice } from '@/lib/utils';
+import { formatDateTime, formatPrice } from '@/lib/utils';
 import { urlFor } from '@/sanity/lib/image';
 import { Check } from 'lucide-react';
 import Image from 'next/image';

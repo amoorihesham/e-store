@@ -2,7 +2,7 @@ import { formatDateTime, cn } from '@/lib/utils';
 import { Order } from '@/sanity.types';
 import Link from 'next/link';
 import { Info } from 'lucide-react';
-const OrderCard = ({ orderNumber, orderDate, status, totalPrice }: Order) => {
+const OrderCard = ({ orderNumber, orderDate, status }: Order) => {
   return (
     <div className='bg-secondary py-4 rounded-md px-6 flex items-center justify-between'>
       <div>

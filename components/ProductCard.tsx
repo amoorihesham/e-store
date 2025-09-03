@@ -1,7 +1,7 @@
 import { formatPrice, calculateDiscountedPrice } from '@/lib/utils';
 import { GET_PRODUCT_QUERYResult } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
-import { Info, ShoppingBasket, Star } from 'lucide-react';
+import { Info, Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';

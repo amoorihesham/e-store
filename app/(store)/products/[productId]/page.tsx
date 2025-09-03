@@ -1,6 +1,5 @@
 import Image from 'next/image';
-import { getProduct, getProducts } from '@/lib/sanity/functions';
-// import { calculatePriceAfterDiscount, currencyFormatter } from '@/lib/utils';
+import { getProduct } from '@/lib/sanity/functions';
 import { Star } from 'lucide-react';
 import AddToCartButton from '@/components/AddToCartButton';
 import Breadcrumbs from '@/components/Breadcrumbs';
