@@ -2,12 +2,10 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import Header from '@/components/Header';
-import { cn } from '@/lib/utils';
-import '../globals.css';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { SanityLive } from '@/sanity/lib/live';
-import MaxWidthContainer from '@/components/MaxWidthContainer';
+import '../globals.css';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -28,12 +26,10 @@ export default function RootLayout({
   return (
     <ClerkProvider dynamic>
       <html lang='en'>
-        <body className={cn('font-inter antialiased', inter.variable)}>
+        <body className={`${inter.variable} font-inter antialiased`}>
           <Toaster />
           <Header />
-          <main>
-            <MaxWidthContainer>{children}</MaxWidthContainer>
-          </main>
+          <main className='min-h-[calc(100dvh-(79px+60px))]'>{children}</main>
           <Footer />
           <SanityLive />
         </body>

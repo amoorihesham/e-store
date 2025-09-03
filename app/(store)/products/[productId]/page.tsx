@@ -1,13 +1,15 @@
 import Image from 'next/image';
-import { getProduct } from '@/lib/sanity/functions';
-import { calculatePriceAfterDiscount, currencyFormatter } from '@/lib/utils';
+import { getProduct, getProducts } from '@/lib/sanity/functions';
+// import { calculatePriceAfterDiscount, currencyFormatter } from '@/lib/utils';
 import { Star } from 'lucide-react';
 import AddToCartButton from '@/components/AddToCartButton';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CarouselSlider from '@/components/CarouselSlider';
 
+export const revalidate = 2000;
+
 export default async function page({ params }: { params: Promise<{ productId: string }> }) {
-  const { productId } = await params;
+  const productId = (await params).productId;
   const product = await getProduct(productId);
 
   return (
@@ -41,12 +43,16 @@ export default async function page({ params }: { params: Promise<{ productId: st
                   <span className='text-sm text-muted-foreground'> | </span>
                 </div>
 
-                <span className={`text-sm ${product?.stocked ? 'text-green-500' : 'text-primaryRed'}`}>{product?.stocked ? 'in stock' : 'out of stock'}</span>
+                <span className={`text-sm ${product?.stocked ? 'text-green-500' : 'text-primaryRed'}`}>
+                  {product?.stocked ? 'in stock' : 'out of stock'}
+                </span>
               </div>
             </div>
             <div className='flex items-center gap-7'>
-              <p className='text-lg text-muted-foreground line-through'>{currencyFormatter(product!.base_price!)}</p>
-              <p className='text-xl font-bold'>{currencyFormatter(calculatePriceAfterDiscount(product!.base_price!, product!.discount_amount!))}</p>
+              {/* <p className='text-lg text-muted-foreground line-through'>{currencyFormatter(product!.base_price!)}</p> */}
+              <p className='text-xl font-bold'>
+                {/* {currencyFormatter(calculatePriceAfterDiscount(product!.base_price!, product!.discount_amount!))} */}
+              </p>
             </div>
             <div>
               <p className='text-sm text-muted-foreground max-w-[500px]'>{product?.desc}</p>
@@ -61,7 +67,6 @@ export default async function page({ params }: { params: Promise<{ productId: st
                   alt='delivery icon'
                   width={42}
                   height={42}
-                  objectFit='contain'
                 />
                 <div>
                   <h6 className='font-bold text-sm'>Free Delivery</h6>
@@ -75,7 +80,6 @@ export default async function page({ params }: { params: Promise<{ productId: st
                   alt='delivery icon'
                   width={42}
                   height={42}
-                  objectFit='contain'
                 />
                 <div>
                   <h6 className='font-bold text-sm'>Return Delivery</h6>

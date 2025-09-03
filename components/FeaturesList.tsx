@@ -18,7 +18,6 @@ export default async function FeaturesList() {
                 alt={feature.icon!.alt!}
                 width={50}
                 height={50}
-                objectFit='contain'
               />
             </div>
             <div className='text-center space-y-1'>

@@ -5,14 +5,14 @@ import { Button } from './ui/button';
 import { GET_PRODUCT_QUERYResult } from '@/sanity.types';
 import { Heart } from 'lucide-react';
 import { useState } from 'react';
-import { calculatePriceAfterDiscount } from '@/lib/utils';
+import { calculateDiscountedPrice } from '@/lib/utils';
 import { urlFor } from '@/sanity/lib/image';
 import UpdateCartQuantity from './UpdateCartQuantity';
 import { useToast } from '@/hooks/use-toast';
 import { useUser } from '@clerk/nextjs';
 
 const AddToCartButton = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
-  const price = product!.has_discount ? calculatePriceAfterDiscount(product!.base_price!, product!.discount_amount!) : product!.base_price;
+  const price = product!.has_discount ? calculateDiscountedPrice(product!.base_price!, product!.discount_amount!) : product!.base_price;
   const [productDetails, setProductDetails] = useState<cartItem>({
     _id: product!._id,
     base_price: price!,

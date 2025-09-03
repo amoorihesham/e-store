@@ -5,23 +5,18 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const currencyFormatter = (price: number | string) => {
-  const secureNumber = Number(price);
-
-  const formatted = secureNumber.toLocaleString('en-US', {
+export function formatPrice(amount: number, locale: string = 'en-US', currency: string = 'USD'): string {
+  return new Intl.NumberFormat(locale, {
     style: 'currency',
-    currency: 'USD',
+    currency,
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-  return formatted;
-};
+  }).format(amount);
+}
 
-export const calculatePriceAfterDiscount = (basePrice: number | string, discountAmount: number | string) => {
-  const secureNumber = Number(basePrice);
-  const secureDiscountNumber = Number(discountAmount);
-  const amountToDecrease = (secureDiscountNumber * secureNumber) / 100;
-  const priceAfterDecreased = secureNumber - amountToDecrease;
+export function calculateDiscountedPrice(price: number, discountPercent: number): number {
+  if (discountPercent <= 0) return price;
+  if (discountPercent >= 100) return 0;
 
-  return priceAfterDecreased;
-};
+  const discountAmount = (price * discountPercent) / 100;
+  return parseFloat((price - discountAmount).toFixed(2));
+}

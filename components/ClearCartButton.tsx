@@ -2,14 +2,18 @@
 
 import useCartStore from '@/store/useCartStore';
 import { Button } from './ui/button';
+import { Trash } from 'lucide-react';
 
 const ClearCartButton = () => {
-  const { clearCart } = useCartStore();
+  const { clearCart, items } = useCartStore();
   return (
     <Button
-      className='bg-primaryRed hover:bg-red-700 transition-colors duration-300'
+      disabled={items.length ? false : true}
+      variant={'destructive'}
+      className='cursor-pointer py-6 px-12 text-lg font-semibold absolute right-4 bottom-4'
       onClick={clearCart}>
-      Clear Cart
+      <Trash className='size-5' />
+      Clear
     </Button>
   );
 };

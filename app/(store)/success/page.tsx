@@ -25,7 +25,6 @@ const SuccessPage = () => {
               src='/images/check-img.png'
               width={200}
               height={200}
-              objectFit='contain'
               alt='Payment successful'
             />
           </div>

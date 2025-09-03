@@ -3,17 +3,19 @@ import FeaturesList from '@/components/FeaturesList';
 import NoData from '@/components/NoData';
 import ProductCard from '@/components/ProductCard';
 import RenderList from '@/components/RenderList';
-import { getBanners, getProducts } from '@/lib/sanity/functions';
+import { getProducts } from '@/lib/sanity/functions';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 export default async function Home() {
   const products = await getProducts();
-  // const categoriesBanners = await getCategoriesBanners();
-  const banners = await getBanners();
+
   return (
     <section className='pageHeight'>
-      <div className=' space-y-14 '>
-        <Banner banners={banners} />
+      <div className='space-y-14'>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Banner />
+        </Suspense>
         <div>
           <RenderList
             data={products}
@@ -32,7 +34,6 @@ export default async function Home() {
         </div>
         <hr className='border-gray-200 mb-8' />
 
-        {/* <CategoryBanner banners={categoriesBanners} /> */}
         <FeaturesList />
       </div>
     </section>

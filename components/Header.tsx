@@ -8,11 +8,12 @@ import useCartStore from '@/store/useCartStore';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import MaxWidthContainer from './MaxWidthContainer';
+import Image from 'next/image';
 
 const Header = () => {
   const CartCount = useCartStore((state) => state.items.length);
   return (
-    <header className='py-4 shadow-md sticky top-0 bg-white z-50'>
+    <header className='py-4 shadow-md sticky top-0 bg-background z-50 border-b border-foreground/20'>
       <MaxWidthContainer>
         {/* Mobile navbar */}
         <div className='md:hidden flex items-center justify-between'>
@@ -27,7 +28,12 @@ const Header = () => {
                     <Link
                       href='/'
                       className='font-bold text-xl'>
-                      e-Store
+                      <Image
+                        src={'/images/logo.png'}
+                        alt='e-store logo image'
+                        width={52}
+                        height={72}
+                      />
                     </Link>
                   </SheetTitle>
                 </SheetHeader>
@@ -73,7 +79,12 @@ const Header = () => {
             <Link
               href='/'
               className='font-bold text-xl'>
-              e-Store
+              <Image
+                src={'/images/logo.png'}
+                alt='e-store logo image'
+                width={52}
+                height={72}
+              />
             </Link>
           </div>
 
@@ -108,43 +119,33 @@ const Header = () => {
         </div>
 
         {/* Desktop Navbar */}
-        <div className='hidden md:flex items-center justify-between '>
+        <div className='hidden md:flex items-center justify-between gap-x-10'>
           <div>
             <Link
               href='/'
               className='font-bold text-xl'>
-              e-Store
+              <Image
+                src={'/images/logo.png'}
+                alt='e-store logo image'
+                width={52}
+                height={72}
+              />
             </Link>
           </div>
-          {/* <div className='flex items-center gap-5'>
-            <Link
-              href={'/'}
-              className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300'>
-              Home
-            </Link>
-            <Link
-              href={'/products'}
-              className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300'>
-              Products
-            </Link>
-            <Link
-              href={'/contact'}
-              className='text-sm text-muted-foreground font-semibold hover:text-black transition-colors duration-300'>
-              Contact
-            </Link>
-          </div> */}
-          <div className='hidden items-center gap-5 md:flex flex-1 justify-end'>
+          <div className='flex-1 max-w-2xl'>
+            <Form
+              action='/search'
+              className='w-full'>
+              <Input
+                placeholder='Search for products'
+                name='query'
+                className='w-full bg-muted-foreground/20 border'
+              />
+            </Form>
+          </div>
+          <div className='hidden items-center gap-5 md:flex  justify-end'>
             <ClerkLoaded>
               <div className='flex items-center gap-3 flex-1 justify-end'>
-                <Form
-                  action='/search'
-                  className='flex-1 flex items-center justify-end'>
-                  <Input
-                    placeholder='Search'
-                    name='query'
-                    className='w-1/2'
-                  />
-                </Form>
                 <Link
                   href={'/cart'}
                   className=' relative'>
@@ -162,8 +163,10 @@ const Header = () => {
                 </SignedIn>
                 <SignedOut>
                   <SignInButton mode='modal'>
-                    <Button variant='ghost'>
-                      <LogIn className='w-5 h-5' /> Login
+                    <Button
+                      variant='ghost'
+                      className='text-lg'>
+                      <LogIn className='w-8 h-8' /> Login
                     </Button>
                   </SignInButton>
                 </SignedOut>

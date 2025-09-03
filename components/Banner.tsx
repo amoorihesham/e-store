@@ -2,9 +2,10 @@
 import Image from 'next/image';
 import Autoplay from 'embla-carousel-autoplay';
 import { urlFor } from '@/sanity/lib/image';
-import { GET_BANNERS_QUERYResult } from '@/sanity.types';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
-const Banner = ({ banners }: { banners: GET_BANNERS_QUERYResult }) => {
+import { getBanners } from '@/lib/sanity/functions';
+const Banner = async () => {
+  // const banners = await getBanners();
   return (
     <Carousel
       opts={{
@@ -16,7 +17,7 @@ const Banner = ({ banners }: { banners: GET_BANNERS_QUERYResult }) => {
         }),
       ]}>
       <CarouselContent>
-        {banners!.map((banner) => (
+        {/* {banners!.map((banner) => (
           <CarouselItem
             key={banner._id}
             className='w-full'>
@@ -27,7 +28,7 @@ const Banner = ({ banners }: { banners: GET_BANNERS_QUERYResult }) => {
               height={1000}
             />
           </CarouselItem>
-        ))}
+        ))} */}
       </CarouselContent>
       <CarouselPrevious className='-left-0 md:-left-10' />
       <CarouselNext className='-right-0 md:-right-10' />

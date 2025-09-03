@@ -1,4 +1,4 @@
-import { calculatePriceAfterDiscount, currencyFormatter } from '@/lib/utils';
+import { formatPrice, calculateDiscountedPrice } from '@/lib/utils';
 import { GET_PRODUCT_QUERYResult } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
 import { Star } from 'lucide-react';
@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 const ProductCard = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
   return (
-    <Link href={`/product/${product!.slug?.current}`}>
+    <Link href={`/products/${product!.slug?.current}`}>
       {/* Image Section */}
       <div className='relative w-full h-64 bg-gray-100 flex items-center justify-center overflow-hidden'>
         <Image
@@ -25,7 +25,9 @@ const ProductCard = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
 
         {/* Pricing */}
         <div className='flex items-center gap-5'>
-          <p className='text-primaryRed font-semibold text-sm'>{currencyFormatter(calculatePriceAfterDiscount(product!.base_price!, product!.discount_amount!))}</p>
+          <p className='text-primaryRed font-semibold text-sm'>
+            {formatPrice(calculateDiscountedPrice(product!.base_price!, product!.discount_amount!))}
+          </p>
           <p className='text-muted-foreground line-through text-xs'>${product!.base_price}</p>
         </div>
 
