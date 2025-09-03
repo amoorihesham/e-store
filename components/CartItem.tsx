@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import React from 'react';
 import { Button } from './ui/button';
@@ -5,13 +6,14 @@ import { Heart, Minus, Plus } from 'lucide-react';
 import { cartItem } from '@/store/useCartStore';
 import { formatPrice } from '@/lib/utils';
 import RemoveFromCartButton from './RemoveFromCartButton';
+import { urlFor } from '@/sanity/lib/image';
 
 const CartItem = ({ _id, name, image, base_price, quantity }: cartItem) => {
   return (
     <div className='flex items-start gap-4 border-b pb-6 border-border/40'>
       <div>
         <Image
-          src={image}
+          src={urlFor(image).url()}
           alt={`image for ${name} product`}
           width={122}
           height={40}

@@ -5,6 +5,7 @@ import {
   GET_CATEGORIES_QUERY,
   GET_FEATURES_QUERY,
   GET_NODATA_IMAGE_QUERY,
+  GET_ORDER_QUERY,
   GET_PRODUCT_QUERY,
   GET_PRODUCTS_QUERY,
   GET_SEARCHED_PRODUCTS_QUERY,
@@ -16,6 +17,7 @@ import {
   GET_CATEGORIES_QUERYResult,
   GET_FEATURES_QUERYResult,
   GET_NODATA_IMAGE_QUERYResult,
+  GET_ORDER_QUERYResult,
   GET_PRODUCT_QUERYResult,
   GET_PRODUCTS_QUERYResult,
   GET_SEARCHED_PRODUCTS_QUERYResult,
@@ -94,4 +96,13 @@ export const getUserOrders = async (clerkUserId: string): Promise<GET_USER_ORDER
     params: { clerkUserId },
   });
   return response.data || [];
+};
+
+export const getOrderDetails = async (orderNumber: string): Promise<GET_ORDER_QUERYResult> => {
+  const response = await sanityFetch({
+    query: GET_ORDER_QUERY,
+    params: { orderNumber },
+  });
+
+  return response.data;
 };

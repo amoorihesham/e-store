@@ -1,37 +1,45 @@
 import { formatPrice, calculateDiscountedPrice } from '@/lib/utils';
 import { GET_PRODUCT_QUERYResult } from '@/sanity.types';
 import { urlFor } from '@/sanity/lib/image';
-import { Star } from 'lucide-react';
+import { Info, ShoppingBasket, Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { Button } from './ui/button';
+import AddToCartProductCard from './buttons/AddToCartProductCard';
 
 const ProductCard = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
   return (
-    <Link href={`/products/${product!.slug?.current}`}>
-      {/* Image Section */}
-      <div className='relative w-full h-64 bg-gray-100 flex items-center justify-center overflow-hidden'>
+    <Card className='py-0 pb-6 group max-h-[412px]'>
+      <CardHeader className='p-0 h-72 relative overflow-hidden'>
         <Image
           src={urlFor(product!.image!).url()}
           alt={product!.image?.alt || 'Product Image'}
           fill
           className='object-contain group-hover:scale-110 transition-transform duration-500'
         />
-      </div>
+        <div className='flex items-center justify-center flex-col gap-4 absolute w-14 h-full bg-foreground/40 top-0 -left-[60px] group-hover:left-0 transition-all duration-500'>
+          <Button
+            variant={'ghost'}
+            size={'icon'}
+            className='bg-background'>
+            <Link href={`/products/${product?.slug?.current}`}>
+              <Info />
+            </Link>
+          </Button>
+          <AddToCartProductCard product={product} />
+        </div>
+      </CardHeader>
+      <CardContent>
+        <CardTitle className='text-xl mb-2'>{product!.name}</CardTitle>
 
-      {/* Product Info Section */}
-      <div className='mt-3 space-y-3 px-3 py-3'>
-        {/* Product Name */}
-        <h1 className='font-bold text-sm line-clamp-1'>{product!.name}</h1>
-
-        {/* Pricing */}
-        <div className='flex items-center gap-5'>
-          <p className='text-primaryRed font-semibold text-sm'>
-            {formatPrice(calculateDiscountedPrice(product!.base_price!, product!.discount_amount!))}
+        <div className='flex items-center gap-5 mb-2'>
+          <p className='text-primary font-bold text-3xl'>
+            {formatPrice(calculateDiscountedPrice(product!.base_price!, product!.discount_amount ?? 0))}
           </p>
-          <p className='text-muted-foreground line-through text-xs'>${product!.base_price}</p>
+          <p className='text-destructive line-through text-lg'>{formatPrice(product!.base_price!)}</p>
         </div>
 
-        {/* Rating */}
         <div className='flex items-center gap-5'>
           <div className='flex items-center'>
             {Array.from({ length: 5 }).map((_, index) => (
@@ -45,8 +53,8 @@ const ProductCard = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
           </div>
           <span className='text-muted-foreground text-sm'>(88)</span>
         </div>
-      </div>
-    </Link>
+      </CardContent>
+    </Card>
   );
 };
 

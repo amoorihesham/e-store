@@ -12,6 +12,7 @@ import Image from 'next/image';
 
 const Header = () => {
   const CartCount = useCartStore((state) => state.items.length);
+
   return (
     <header className='py-4 shadow-md sticky top-0 bg-background z-50 border-b border-foreground/20'>
       <MaxWidthContainer>
@@ -149,8 +150,8 @@ const Header = () => {
                 <Link
                   href={'/cart'}
                   className=' relative'>
-                  <ShoppingBag className='h-5 w-5' />
-                  <span className=' absolute -top-2 left-0.5 w-4 h-4 bg-primaryRed rounded-full flex items-center justify-center text-white text-xs'>
+                  <ShoppingBag className='h-6 w-6' />
+                  <span className=' absolute -top-2 left-0.5 w-5 h-5 bg-destructive rounded-full flex items-center justify-center text-white text-sm'>
                     {CartCount}
                   </span>
                 </Link>
@@ -165,8 +166,8 @@ const Header = () => {
                   <SignInButton mode='modal'>
                     <Button
                       variant='ghost'
-                      className='text-lg'>
-                      <LogIn className='w-8 h-8' /> Login
+                      className='text-lg py-6 cursor-pointer'>
+                      <LogIn className='size-5' /> Login
                     </Button>
                   </SignInButton>
                 </SignedOut>

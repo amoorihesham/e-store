@@ -13,7 +13,7 @@ const CheckoutButton = () => {
   const handleClick = async () => {
     setIsLoading(true);
     const response = await CreateCheckout(items);
-
+    console.log('HERE');
     if (!response.success) return toast({ variant: 'destructive', title: response.error, description: response.message });
 
     window.location.href = response.checkout_url!;

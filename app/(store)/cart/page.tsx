@@ -2,7 +2,6 @@ import CheckoutButton from '@/components/buttons/CheckoutButton';
 import CartItemsCount from '@/components/CartItemsCount';
 import CartItemsList from '@/components/CartItemsList';
 import CartTotalPrice from '@/components/CartTotalPrice';
-import ClearCartButton from '@/components/ClearCartButton';
 import MaxWidthContainer from '@/components/MaxWidthContainer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,7 +17,6 @@ const CartPage = () => {
       <div className='flex items-start justify-between gap-x-10 mt-10'>
         <div className='relative p-6 bg-foreground/10 backdrop-blur-sm border rounded-sm shadow-xl flex-1 min-h-[calc(100dvh-(79px+120px))] '>
           <CartItemsList />
-          <ClearCartButton />
         </div>
         <div className='flex-1/2 max-w-sm border rounded-sm p-6 bg-foreground/10 sticky top-30 h-[calc(100dvh-(79px+120px))]'>
           <h3 className='text-xl font-semibold capitalize mb-6'>order summary</h3>

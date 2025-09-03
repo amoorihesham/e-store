@@ -1,3 +1,4 @@
+'use server';
 import { cartItem } from '@/store/useCartStore';
 import { getLoggedInUser } from './auth';
 import createStripeCheckoutSession, { Metadata } from './stripe';
@@ -15,6 +16,7 @@ export const CreateCheckout = async (items: cartItem[]) => {
 
   try {
     const checkoutUrl = await createStripeCheckoutSession(items, orderMetadata);
+    console.log(checkoutUrl);
     return { success: true, message: 'Checkout url created successfully', checkout_url: checkoutUrl };
   } catch (error) {
     console.log('ERROR_ON_CREATE_CHECKOUT_ACTION ==>', error);

@@ -1,5 +1,6 @@
 import Banner from '@/components/Banner';
 import FeaturesList from '@/components/FeaturesList';
+import MaxWidthContainer from '@/components/MaxWidthContainer';
 import NoData from '@/components/NoData';
 import ProductCard from '@/components/ProductCard';
 import RenderList from '@/components/RenderList';
@@ -11,7 +12,7 @@ export default async function Home() {
   const products = await getProducts();
 
   return (
-    <section className='pageHeight'>
+    <MaxWidthContainer className='py-8'>
       <div className='space-y-14'>
         <Suspense fallback={<p>Loading...</p>}>
           <Banner />
@@ -36,6 +37,6 @@ export default async function Home() {
 
         <FeaturesList />
       </div>
-    </section>
+    </MaxWidthContainer>
   );
 }

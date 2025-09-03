@@ -1,34 +1,32 @@
-import { currencyFormatter } from '@/lib/utils';
+import { formatDateTime, cn } from '@/lib/utils';
 import { Order } from '@/sanity.types';
-import React from 'react';
-
+import Link from 'next/link';
+import { Info } from 'lucide-react';
 const OrderCard = ({ orderNumber, orderDate, status, totalPrice }: Order) => {
   return (
-    <div className='p-2 border rounded-md my-5 space-y-2'>
+    <div className='bg-secondary py-4 rounded-md px-6 flex items-center justify-between'>
       <div>
-        <h6 className='font-bold text-sm'>Order Number</h6>
-        <span className='text-primaryGreen text-xs'>{orderNumber}</span>
+        <h3 className='text-foreground font-bold'>Order: #{orderNumber?.slice(-6)}</h3>
+        <p className='text-muted-foreground font-medium'>
+          {formatDateTime(orderDate!)} -{' '}
+          <span
+            className={cn(
+              'p-1 uppercase rounded-sm px-3 font-bold tracking-wide',
+              status === 'paid' && 'bg-primary text-black',
+              status === 'delivered' && 'bg-destructive text-white',
+              status === 'pending' && 'bg-blue-600 text-white'
+            )}>
+            {status}
+          </span>
+        </p>
       </div>
       <div>
-        <h6 className='text-muted-foreground text-sm'>Order Data</h6>
-        <span className='text-xs'>{orderDate?.split('T')[0]}</span>
+        <Link
+          href={`/orders/${orderNumber}`}
+          className='p-3 flex items-center justify-center hover:bg-background/80 rounded-full transition-colors duration-500'>
+          <Info />
+        </Link>
       </div>
-      <div className='flex items-center gap-2'>
-        status: <span className='bg-green-100 px-2 py-1 flex items-center justify-center rounded-lg text-xs '>{status}</span>
-      </div>
-      <div>
-        <h6 className='text-sm text-muted-foreground'>Total Amount</h6>
-        <span className='font-bold '>{currencyFormatter(totalPrice!)}</span>
-      </div>
-      {/* <hr /> */}
-      {/* <div>
-        <h6>Order Items</h6>
-        <div>
-          {products?.map(product=>(
-            // <div key={product.product.}></div>
-          ))} 
-        </div>
-      </div> */}
     </div>
   );
 };

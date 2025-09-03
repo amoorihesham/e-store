@@ -1,6 +1,6 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
 import { BasketIcon, ListIcon } from '@sanity/icons';
-import { currencyFormatter } from '@/lib/utils';
+import { formatPrice } from '@/lib/utils';
 
 export const orderType = defineType({
   name: 'order',
@@ -122,7 +122,7 @@ export const orderType = defineType({
       const orderIdSnippet = `${select.orderId.slice(0, 5)}...${select.orderId.slice(-5)}`;
       return {
         title: `${select.name} (${orderIdSnippet})`,
-        subtitle: `${currencyFormatter(select.amount)} ${select.currency}, ${select.email}`,
+        subtitle: `${formatPrice(select.amount)} ${select.currency}, ${select.email}`,
         media: BasketIcon,
       };
     },

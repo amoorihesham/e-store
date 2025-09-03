@@ -22,7 +22,7 @@ export default async function FeaturesList() {
             </div>
             <div className='text-center space-y-1'>
               <h6 className='font-semibold text-lg'>{feature.title}</h6>
-              <p className=' font-light text-gray-800'>{feature.description}</p>
+              <p className=' font-light text-muted-foreground'>{feature.description}</p>
             </div>
           </div>
         ))}
