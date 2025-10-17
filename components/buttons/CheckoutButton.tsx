@@ -1,31 +1,39 @@
-'use client';
-import React, { useState } from 'react';
-import { Button } from '../ui/button';
-import { Loader, Save } from 'lucide-react';
-import useCartStore from '@/store/useCartStore';
-import { CreateCheckout } from '@/actions';
-import { toast } from '@/hooks/use-toast';
+"use client";
+import React, { useTransition } from "react";
+import { Button } from "../ui/button";
+import { Loader, Save } from "lucide-react";
+import useCartStore from "@/store/useCartStore";
+import { CreateCheckout } from "@/actions";
+import { toast } from "@/hooks/use-toast";
 
 const CheckoutButton = () => {
   const { items } = useCartStore();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
-  const handleClick = async () => {
-    setIsLoading(true);
-    const response = await CreateCheckout(items);
-    console.log('HERE');
-    if (!response.success) return toast({ variant: 'destructive', title: response.error, description: response.message });
+  const handleClick = () => {
+    startTransition(async () => {
+      const response = await CreateCheckout(items);
 
-    window.location.href = response.checkout_url!;
-    setIsLoading(false);
+      if (!response.success) {
+        toast({
+          variant: "destructive",
+          title: response.error,
+          description: response.message,
+        });
+        return;
+      }
+
+      window.location.href = response.checkout_url!;
+    });
   };
 
   return (
     <Button
-      disabled={isLoading}
-      className='w-full py-6 capitalize text-lg font-semibold cursor-pointer'
-      onClick={handleClick}>
-      {isLoading ? (
+      disabled={isPending}
+      className="w-full py-6 capitalize text-lg font-semibold cursor-pointer"
+      onClick={handleClick}
+    >
+      {isPending ? (
         <>
           <Loader /> checking out...
         </>

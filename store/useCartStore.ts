@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export type cartItem = {
   _id: string;
@@ -23,7 +23,9 @@ const useCartStore = create<cartStore>()(
       items: [],
       addToCart: (product) =>
         set((state) => {
-          const existingItem = state.items.findIndex((item) => item._id === product._id);
+          const existingItem = state.items.findIndex(
+            (item) => item._id === product._id
+          );
           if (existingItem !== -1) {
             const updatedItems = [...state.items];
             updatedItems[existingItem].quantity += 1;
@@ -33,10 +35,18 @@ const useCartStore = create<cartStore>()(
           }
         }),
       clearCart: () => set(() => ({ items: [] })),
-      removeFromCart: (productId) => set(({ items }) => ({ items: items.filter((item) => item._id !== productId) })),
-      getTotalPrice: () => get().items.reduce((total, currentItem) => total + currentItem.quantity * currentItem.base_price, 0),
+      removeFromCart: (productId) =>
+        set(({ items }) => ({
+          items: items.filter((item) => item._id !== productId),
+        })),
+      getTotalPrice: () =>
+        get().items.reduce(
+          (total, currentItem) =>
+            total + currentItem.quantity * currentItem.base_price,
+          0
+        ),
     }),
-    { name: 'cart-storage' }
+    { name: "cart-storage" }
   )
 );
 

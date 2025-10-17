@@ -1,42 +1,34 @@
-import Banner from '@/components/Banner';
-import FeaturesList from '@/components/FeaturesList';
-import MaxWidthContainer from '@/components/MaxWidthContainer';
-import NoData from '@/components/NoData';
-import ProductCard from '@/components/ProductCard';
-import RenderList from '@/components/RenderList';
-import { getProducts } from '@/lib/sanity/functions';
-import Link from 'next/link';
-import { Suspense } from 'react';
+import Banner from "@/components/Banner";
+import FeaturesList from "@/components/FeaturesList";
+import MaxWidthContainer from "@/components/MaxWidthContainer";
+import ProductsGrid from "@/components/ProductsGrid";
+import Link from "next/link";
+import { Suspense } from "react";
 
 export default async function Home() {
-  const products = await getProducts();
-
   return (
-    <MaxWidthContainer className='py-8'>
-      <div className='space-y-14'>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Banner />
-        </Suspense>
-        <div>
-          <RenderList
-            data={products}
-            keyExtractor={(item) => item._id}
-            listHeading={'All Products'}
-            render={(item) => <ProductCard product={item} />}
-            EmptyComponent={() => <NoData message='No Products' />}
-          />
-          <div className='flex items-center justify-center'>
+    <div>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Banner />
+      </Suspense>
+      <MaxWidthContainer className="py-8">
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold capitalize">all products</h2>
             <Link
-              href='/products'
-              className='bg-primaryRed text-white px-5 py-2 rounded-md'>
+              href="/products"
+              className="bg-primaryRed text-white px-5 py-2 rounded-md"
+            >
               See All
             </Link>
           </div>
+          <Suspense fallback={<p>loading....</p>}>
+            <ProductsGrid />
+          </Suspense>
         </div>
-        <hr className='border-gray-200 mb-8' />
-
-        <FeaturesList />
-      </div>
-    </MaxWidthContainer>
+      </MaxWidthContainer>
+      <hr className="border border-muted my-8" />
+      <FeaturesList />
+    </div>
   );
 }

@@ -1,38 +1,26 @@
-'use client';
-import React from 'react';
-import Image from 'next/image';
-import { urlFor } from '@/sanity/lib/image';
-import Autoplay from 'embla-carousel-autoplay';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
-import { GET_BANNERS_QUERYResult } from '@/sanity.types';
+"use client";
+import React from "react";
+import Image from "next/image";
+import { urlFor } from "@/sanity/lib/image";
+import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
+import { GET_BANNERS_QUERYResult } from "@/sanity.types";
 
 const BannersCarousel = ({ banners }: { banners: GET_BANNERS_QUERYResult }) => {
   return (
-    <Carousel
-      opts={{
-        align: 'center',
-      }}
-      plugins={[
-        Autoplay({
-          delay: 3000,
-        }),
-      ]}>
-      <CarouselContent>
+    <Carousel>
+      <CarouselContent className="h-[calc(100dvh-81px)]">
         {banners!.map((banner) => (
-          <CarouselItem
-            key={banner._id}
-            className='w-full'>
+          <CarouselItem key={banner._id} className="w-full h-full">
             <Image
               src={urlFor(banner.image!).url()}
               alt={banner.image!.alt!}
               width={3000}
               height={1000}
+              className="w-full h-full"
             />
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className='-left-0 md:-left-10' />
-      <CarouselNext className='-right-0 md:-right-10' />
     </Carousel>
   );
 };
