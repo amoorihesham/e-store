@@ -28,7 +28,7 @@ export default async function Home() {
         </div>
       </MaxWidthContainer>
       <hr className="border border-muted my-8" />
-      <FeaturesList />
+      {/* <FeaturesList /> */}
     </div>
   );
 }

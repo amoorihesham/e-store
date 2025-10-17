@@ -1,18 +1,28 @@
-import Link from 'next/link';
+import Link from "next/link";
 
-const Breadcrumbs = ({ mainPath, secPath, id }: { mainPath: string; secPath: string; id: string }) => {
+const Breadcrumbs = ({
+  mainPath,
+
+  id,
+}: {
+  mainPath: string;
+
+  id: string;
+}) => {
   return (
     <div>
       <h1>
         <Link
           href={`/${mainPath}`}
-          className=' text-muted-foreground text-sm capitalize'>
+          className=" text-muted-foreground text-sm capitalize"
+        >
           {mainPath}
         </Link>
         <span> / </span>
         <Link
-          href={`/${secPath}/${id}`}
-          className=' text-black text-sm capitalize'>
+          href={`/${mainPath}/${id}`}
+          className=" text-foreground text-sm capitalize"
+        >
           {id}
         </Link>
       </h1>

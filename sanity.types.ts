@@ -323,7 +323,25 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Order | Feature | NotFound | Category_banner | Product | Banner | Category | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes =
+  | Order
+  | Feature
+  | NotFound
+  | Category_banner
+  | Product
+  | Banner
+  | Category
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityImageHotspot
+  | SanityImageCrop
+  | SanityFileAsset
+  | SanityImageAsset
+  | SanityImageMetadata
+  | Geopoint
+  | Slug
+  | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: GET_BANNERS_QUERY
@@ -536,7 +554,7 @@ export type GET_PRODUCT_QUERYResult = {
   stocked?: boolean;
   quantity?: number;
   base_price?: number;
-} | null;
+};
 // Variable: GET_CATEGORIES_QUERY
 // Query: *[_type=='category']
 export type GET_CATEGORIES_QUERYResult = Array<{

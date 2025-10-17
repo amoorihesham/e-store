@@ -1,13 +1,15 @@
-import { createClient } from 'next-sanity';
+import { createClient } from "next-sanity";
 
-import { apiVersion, dataset, projectId } from '../env';
+const token = process.env.NEXT_SANITY_READ_API_TOKEN;
+
+if (!token) {
+  throw new Error("Missing NEXT_SANITY_READ_API_TOKEN");
+}
 
 export const client = createClient({
-  projectId,
-  dataset,
-  apiVersion,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
+  apiVersion: "2024-01-01",
   useCdn: true,
-  stega: {
-    studioUrl: process.env.NODE_ENV === 'production' ? `https://estoreapp-sage.vercel.app/studio` : 'localhost:3000/studio',
-  }, // Set to false if statically generating pages, using ISR or tag-based revalidation
+  token: process.env.NEXT_SANITY_DEVELOPER_TOKEN,
 });
