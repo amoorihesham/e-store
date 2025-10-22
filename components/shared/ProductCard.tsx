@@ -19,7 +19,12 @@ const ProductCard = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
           className="object-contain group-hover:scale-110 transition-transform duration-500"
         />
         <div className="flex items-center justify-center flex-col gap-4 absolute w-14 h-full bg-foreground/40 top-0 -left-[60px] group-hover:left-0 transition-all duration-500">
-          <Button variant={"ghost"} size={"icon"} className="bg-background">
+          <Button
+            variant={"ghost"}
+            size={"icon"}
+            className="bg-background"
+            aria-label="view product details page"
+          >
             <Link href={`/products/${product?.slug?.current}`}>
               <Info />
             </Link>

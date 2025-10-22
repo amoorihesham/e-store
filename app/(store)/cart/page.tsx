@@ -31,6 +31,7 @@ const CartPage = () => {
               <Button
                 variant={"ghost"}
                 className="absolute right-0 top-0 cursor-pointer"
+                aria-label="remove item from cart button"
               >
                 Remove
               </Button>

@@ -18,6 +18,7 @@ export const OrderDetailsButton = ({
     <Link
       href={`/orders/${orderNumber}`}
       className="border rounded-sm  py-4 px-10 hover:bg-secondary transition-colors duration-300"
+      aria-label="view order details page"
     >
       Order Details
     </Link>

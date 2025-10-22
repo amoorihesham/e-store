@@ -19,6 +19,7 @@ export default async function Home() {
             <Link
               href="/products"
               className="bg-primaryRed text-white px-5 py-2 rounded-md"
+              aria-label="see all products link"
             >
               See All
             </Link>

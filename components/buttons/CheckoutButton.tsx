@@ -31,6 +31,7 @@ const CheckoutButton = () => {
     <Button
       disabled={isPending}
       className="w-full py-6 capitalize text-lg font-semibold cursor-pointer"
+      aria-label="checkout button"
       onClick={handleClick}
     >
       {isPending ? (

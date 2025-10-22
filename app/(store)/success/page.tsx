@@ -37,6 +37,7 @@ const SuccessPage = async ({
             <Link
               href={`/`}
               className="bg-chart-2 px-10 py-4 text-foreground rounded-sm hover:bg-chart-2/80 transition-colors duration-300"
+              aria-label="redirect to home page link"
             >
               Continuo Shopping
             </Link>
