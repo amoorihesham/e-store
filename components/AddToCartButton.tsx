@@ -49,7 +49,7 @@ const AddToCartButton = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
 
   return (
     <>
-      <div className="flex items-center justify-between space-y-6">
+      <div className="flex items-center justify-between">
         <Button size="icon" variant="outline" className="cursor-pointer">
           <Heart size={25} />
         </Button>
@@ -58,7 +58,7 @@ const AddToCartButton = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
           setProductDetails={setProductDetails}
         />
       </div>
-      <div>
+      <div className="mt-6">
         <Button
           className="w-full font-semibold text-lg cursor-pointer"
           onClick={handleAddToCart}
