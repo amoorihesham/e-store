@@ -17,6 +17,7 @@ const BannersCarousel = ({ banners }: { banners: GET_BANNERS_QUERYResult }) => {
               width={3000}
               height={1000}
               className="w-full h-full"
+              priority
             />
           </CarouselItem>
         ))}

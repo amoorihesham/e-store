@@ -10,6 +10,7 @@ const Footer = () => {
             <Link
               href={"/"}
               className="text-primary font-semibold text-lg capitalize hover:underline"
+              aria-label="go to home page"
             >
               e-store
             </Link>

@@ -15,6 +15,7 @@ const Breadcrumbs = ({
         <Link
           href={`/${mainPath}`}
           className=" text-muted-foreground text-sm capitalize"
+          aria-label={`go to ${mainPath}`}
         >
           {mainPath}
         </Link>
@@ -22,6 +23,7 @@ const Breadcrumbs = ({
         <Link
           href={`/${mainPath}/${id}`}
           className=" text-foreground text-sm capitalize"
+          aria-label={`go to ${mainPath}/${id}`}
         >
           {id}
         </Link>
