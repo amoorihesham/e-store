@@ -15,8 +15,6 @@ export const generateStaticParams = async () => {
   }));
 };
 
-export const revalidate = 2000;
-
 export default async function page({
   params,
 }: {
@@ -97,7 +95,7 @@ export default async function page({
             <div className="px-6 py-4 flex items-center gap-5">
               <div className="bg-foreground/80 size-14 rounded-full flex items-center justify-center">
                 <Image
-                  src="/icons/icon-return.png"
+                  src="/icons/Icon-return.png"
                   alt="delivery icon"
                   width={42}
                   height={42}
