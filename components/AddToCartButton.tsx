@@ -1,18 +1,20 @@
-'use client';
+"use client";
 
-import useCartStore, { cartItem } from '@/store/useCartStore';
-import { Button } from './ui/button';
-import { GET_PRODUCT_QUERYResult } from '@/sanity.types';
-import { Heart } from 'lucide-react';
-import { useState } from 'react';
-import { calculateDiscountedPrice } from '@/lib/utils';
-import { urlFor } from '@/sanity/lib/image';
-import UpdateCartQuantity from './UpdateCartQuantity';
-import { useToast } from '@/hooks/use-toast';
-import { useUser } from '@clerk/nextjs';
+import useCartStore, { cartItem } from "@/store/useCartStore";
+import { Button } from "./ui/button";
+import { GET_PRODUCT_QUERYResult } from "@/sanity.types";
+import { BaggageClaim, Heart } from "lucide-react";
+import { useState } from "react";
+import { calculateDiscountedPrice } from "@/lib/utils";
+import { urlFor } from "@/sanity/lib/image";
+import UpdateCartQuantity from "./UpdateCartQuantity";
+import { useToast } from "@/hooks/use-toast";
+import { useUser } from "@clerk/nextjs";
 
 const AddToCartButton = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
-  const price = product!.has_discount ? calculateDiscountedPrice(product!.base_price!, product!.discount_amount!) : product!.base_price;
+  const price = product!.has_discount
+    ? calculateDiscountedPrice(product!.base_price!, product!.discount_amount!)
+    : product!.base_price;
   const [productDetails, setProductDetails] = useState<cartItem>({
     _id: product!._id,
     base_price: price!,
@@ -27,30 +29,28 @@ const AddToCartButton = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
   const handleAddToCart = async () => {
     if (!isSignedIn) {
       toast({
-        title: 'Error',
-        description: 'You need to be signed in to add items to the cart',
+        title: "Error",
+        description: "You need to be signed in to add items to the cart",
         duration: 2000,
-        variant: 'destructive',
+        variant: "destructive",
       });
       return;
     }
 
     await addToCart(productDetails);
     toast({
-      title: 'Item added to cart',
+      title: "Item added to cart",
       description: productDetails.name,
-      type: 'background',
+      type: "background",
       duration: 2000,
-      variant: 'default',
+      variant: "default",
     });
   };
 
   return (
     <>
-      <div className='flex items-center justify-between'>
-        <Button
-          size='icon'
-          variant='outline'>
+      <div className="flex items-center justify-between space-y-6">
+        <Button size="icon" variant="outline" className="cursor-pointer">
           <Heart size={25} />
         </Button>
         <UpdateCartQuantity
@@ -60,9 +60,10 @@ const AddToCartButton = ({ product }: { product: GET_PRODUCT_QUERYResult }) => {
       </div>
       <div>
         <Button
-          className='bg-primaryRed hover:bg-red-700 transition-colors duration-300 w-full'
-          onClick={handleAddToCart}>
-          Add To Cart
+          className="w-full font-semibold text-lg cursor-pointer"
+          onClick={handleAddToCart}
+        >
+          <BaggageClaim /> Add To Cart
         </Button>
       </div>
     </>

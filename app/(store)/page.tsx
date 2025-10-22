@@ -1,7 +1,8 @@
 import Banner from "@/components/Banner";
 import FeaturesList from "@/components/FeaturesList";
 import MaxWidthContainer from "@/components/MaxWidthContainer";
-import ProductsGrid from "@/components/ProductsGrid";
+import ProductsGrid from "@/components/shared/ProductsGrid";
+import ProductsGridSkeleton from "@/components/shared/ProductsGridSkeleton";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -22,13 +23,13 @@ export default async function Home() {
               See All
             </Link>
           </div>
-          <Suspense fallback={<p>loading....</p>}>
+          <Suspense fallback={<ProductsGridSkeleton />}>
             <ProductsGrid />
           </Suspense>
         </div>
       </MaxWidthContainer>
       <hr className="border border-muted my-8" />
-      {/* <FeaturesList /> */}
+      <FeaturesList />
     </div>
   );
 }

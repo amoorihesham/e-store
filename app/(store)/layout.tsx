@@ -4,7 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
-
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "../globals.css";
 
 const inter = Inter({
@@ -29,7 +29,11 @@ export default function RootLayout({
         <body className={`${inter.variable} font-inter antialiased`}>
           <Toaster />
           <Header />
-          <main className="min-h-[calc(100dvh-(79px+60px))]">{children}</main>
+          <main className="min-h-[calc(100dvh-(80px+70px))]">
+            <NuqsAdapter defaultOptions={{ shallow: false }}>
+              {children}
+            </NuqsAdapter>
+          </main>
           <Footer />
         </body>
       </html>

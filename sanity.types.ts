@@ -642,7 +642,7 @@ export type GET_FEATURES_QUERYResult = Array<{
     crop?: SanityImageCrop;
     alt?: string;
     _type: "image";
-  } | null;
+  };
 }>;
 // Variable: GET_USER_ORDERS_QUERY
 // Query: *[_type=='order' && clerkUserId == $clerkUserId] | order(orderDate desc)
@@ -703,7 +703,7 @@ export type GET_ORDER_QUERYResult = {
       } | null;
     } | null;
   }> | null;
-} | null;
+};
 
 // Query TypeMap
 import "@sanity/client";

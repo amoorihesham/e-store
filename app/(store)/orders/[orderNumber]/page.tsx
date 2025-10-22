@@ -6,6 +6,8 @@ import { urlFor } from "@/sanity/lib/image";
 import { Check } from "lucide-react";
 import Image from "next/image";
 
+export const revalidate = 60;
+
 const OrderDetailsPage = async ({
   params,
 }: {

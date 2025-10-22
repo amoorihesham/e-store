@@ -1,11 +1,19 @@
 import Image from "next/image";
-import { getProduct } from "@/lib/sanity/functions";
+import { getProduct, getProducts } from "@/lib/sanity/functions";
 import { Star } from "lucide-react";
 import AddToCartButton from "@/components/AddToCartButton";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CarouselSlider from "@/components/CarouselSlider";
 import MaxWidthContainer from "@/components/MaxWidthContainer";
 import { calculateDiscountedPrice, formatPrice } from "@/lib/utils";
+
+export const generateStaticParams = async () => {
+  const products = await getProducts();
+
+  return products.map((product) => ({
+    productsId: product._id,
+  }));
+};
 
 export const revalidate = 2000;
 
@@ -20,7 +28,7 @@ export default async function page({
   return (
     <MaxWidthContainer className="py-8">
       <Breadcrumbs mainPath="products" id={productId} />
-      <div className="mt-6 flex flex-col gap-y-5 md:flex-row lg:justify-between gap-14">
+      <div className="mt-6 flex flex-col gap-y-5 md:flex-row  lg:justify-between gap-14 ">
         <div className="left max-w-[500px] flex items-center bg-muted/40 border rounded-sm overflow-hidden">
           <CarouselSlider images={product?.images} />
         </div>
@@ -68,14 +76,16 @@ export default async function page({
           <hr className="border border-muted rounded-lg my-6" />
 
           <AddToCartButton product={product!} />
-          <div className="border rounded-md">
-            <div className="border-b p-3 flex items-center gap-5">
-              <Image
-                src="/icons/icon-delivery.png"
-                alt="delivery icon"
-                width={42}
-                height={42}
-              />
+          <div className="border rounded-md mt-8">
+            <div className="border-b px-6 py-4 flex items-center gap-5">
+              <div className="bg-foreground/80 size-14 rounded-full flex items-center justify-center">
+                <Image
+                  src="/icons/icon-delivery.png"
+                  alt="delivery icon"
+                  width={42}
+                  height={42}
+                />
+              </div>
               <div>
                 <h6 className="font-bold text-sm">Free Delivery</h6>
                 <p className="text-xs mt-1">
@@ -84,13 +94,15 @@ export default async function page({
               </div>
             </div>
 
-            <div className="p-3 flex items-center gap-5">
-              <Image
-                src="/icons/icon-return.png"
-                alt="delivery icon"
-                width={42}
-                height={42}
-              />
+            <div className="px-6 py-4 flex items-center gap-5">
+              <div className="bg-foreground/80 size-14 rounded-full flex items-center justify-center">
+                <Image
+                  src="/icons/icon-return.png"
+                  alt="delivery icon"
+                  width={42}
+                  height={42}
+                />
+              </div>
               <div>
                 <h6 className="font-bold text-sm">Return Delivery</h6>
                 <p className="text-xs mt-1">
