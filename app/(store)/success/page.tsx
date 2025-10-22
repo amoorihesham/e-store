@@ -1,21 +1,16 @@
-"use client";
-import MaxWidthContainer from "@/components/MaxWidthContainer";
-import useCartStore from "@/store/useCartStore";
-import { useUser } from "@clerk/nextjs";
+import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import MaxWidthContainer from "@/components/MaxWidthContainer";
+import { OrderDetailsButton } from "./_components/OrderDetails";
+import { currentUser } from "@clerk/nextjs/server";
 
-const SuccessPage = () => {
-  const { user } = useUser();
-  const orderNumber = useSearchParams().get("orderNumber");
-  const { clearCart } = useCartStore();
-
-  useEffect(() => {
-    clearCart();
-  }, [clearCart]);
-
+const SuccessPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ orderNumber: string }>;
+}) => {
+  const user = await currentUser();
   return (
     <MaxWidthContainer className="py-8 flex items-center justify-center h-[calc(100dvh-(79px+60px))]">
       <div className="bg-secondary/60 py-6 border rounded-md w-2xl mx-auto">
@@ -36,12 +31,9 @@ const SuccessPage = () => {
             We&apos;ll send you a confirmation email as soon as your order ships
           </p>
           <div className="flex items-center gap-3 mt-6">
-            <Link
-              href={`/orders/${orderNumber}`}
-              className="border rounded-sm  py-4 px-10 hover:bg-secondary transition-colors duration-300"
-            >
-              Order Details
-            </Link>
+            <Suspense>
+              <OrderDetailsButton orderNumber={searchParams} />
+            </Suspense>
             <Link
               href={`/`}
               className="bg-chart-2 px-10 py-4 text-foreground rounded-sm hover:bg-chart-2/80 transition-colors duration-300"

@@ -10,7 +10,9 @@ export type PageParamsProps = { searchParams?: Promise<SearchParams> };
 export default function ProductsPage({ searchParams }: PageParamsProps) {
   return (
     <MaxWidthContainer className="py-4 space-y-6">
-      <FiltersBar />
+      <Suspense>
+        <FiltersBar />
+      </Suspense>
 
       <Suspense fallback={<ProductsGridSkeleton />}>
         <ProductsGrid searchParams={searchParams} />

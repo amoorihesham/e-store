@@ -24,7 +24,6 @@ import {
   GET_USER_ORDERS_QUERYResult,
 } from "@/sanity.types";
 import { type SanityDocument } from "next-sanity";
-import { ProductsPageQueryType } from "@/app/(store)/products/page";
 
 const options = { next: { revalidate: 50 } };
 
